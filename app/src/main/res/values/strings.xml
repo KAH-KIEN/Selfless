@@ -28,4 +28,32 @@
     <string name="forgotPW">Forgot password?</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+
+    <string name="noAccount">Don\'t have an account?</string>
+    <string name="mainFBtext">or login with</string>
+    <string name="facebook">Facebook</string>
+    <string name="findAccount">Find your account</string>
+    <string name="emailText">Enter your email address linked to your account.</string>
+    <string name="hintEmail">Email address</string>
+    <string name="sendEmail">Send email</string>
+    <string name="continueFacebook">Continue with Facebook</string>
+    <string name="or">Or</string>
+    <string name="registerEmail">Register with Google</string>
+    <string name="haveAccount">Already have an account?</string>
+    <string name="enterCode">Enter confirmation code</string>
+    <string name="codeText">Enter the confirmation code that we sent to your email. Resend code.</string>
+    <string name="confirmationCode">Confirmation code</string>
+    <string name="next">next</string>
+    <string name="setProfile">Set up profile</string>
+    <string name="addPhoto">Add profile photo</string>
+    <string name="addPhotoDesc">Add a profile photo so that your friends can know it\'s you.</string>
+    <string name="addPhoto2">Add a photo</string>
+    <string name="skip">Skip</string>
+    <string name="name">Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="contact">Contact Number</string>
+    <string name="email">Email address</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="signout">Sign out</string>
+    <string name="done">Done</string>
 </resources>
