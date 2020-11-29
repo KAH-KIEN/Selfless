@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.eventdetails.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_myevents"
+        android:name="com.example.eventdetails.ui.MyEvents.MyEventMain"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_myevents" />
+
+    <fragment
+        android:id="@+id/navigation_achievements"
+        android:name="com.example.eventdetails.ui.Achievement.achievementFragment"
+        android:label="@string/Achievements"
+        tools:layout="@layout/achievement_fragment" />
+    <fragment
+        android:id="@+id/navigation_editEvents"
+        android:name="com.example.eventdetails.ui.EventDetails.EditEventsFragment"
+        android:label="edit_events_fragment"
+        tools:layout="@layout/edit_events_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_eventMain"
+        android:name="com.example.eventdetails.ui.Events.EventMain"
+        android:label="Events"
+        tools:layout="@layout/fragment_event_main" />
+    <fragment
+        android:id="@+id/navigation_QRCode"
+        android:name="com.example.eventdetails.ui.EventDetails.QRCodeFragment"
+        android:label="q_r_code_fragment"
+        tools:layout="@layout/q_r_code_fragment" />
+    <fragment
+        android:id="@+id/navigation_eventDetails"
+        android:name="com.example.eventdetails.ui.EventDetails.EventDetailsFragment"
+        android:label="fragment_eventdetails"
+        tools:layout="@layout/fragment_eventdetails" />
+    <fragment
+        android:id="@+id/organiserEventsFragment"
+        android:name="com.example.eventdetails.ui.EventDetails.OrganiserEventsFragment"
+        android:label="organiser_events_fragment"
+        tools:layout="@layout/organiser_events_fragment" />
+    <fragment
+        android:id="@+id/fragment_create_event"
+        android:name="com.example.eventdetails.ui.CreateEvent.CreateEvent"
+        android:label="Create Event"
+        tools:layout="@layout/fragment_create_event" />
+</navigation>

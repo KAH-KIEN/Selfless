@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.CreateEvent.CreateEvent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Title"
+                        android:inputType="textPersonName"
+                        android:id="@+id/eventTitle"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Date"
+                        android:inputType="date"
+                        android:id="@+id/eventDate"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Time"
+                        android:inputType="time"
+                        android:id="@+id/eventTime"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Duration"
+                        android:inputType="number"
+                        android:id="@+id/eventDuration"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Location"
+                        android:inputType="textPostalAddress"
+                        android:id="@+id/eventLocation"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Contact Number"
+                        android:inputType="phone"
+                        android:id="@+id/eventContact"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Description"
+                        android:inputType="textMultiLine"
+                        android:id="@+id/eventDescription"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventWhatsappLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="WhatsApp Link"
+                        android:inputType="textUri"
+                        android:id="@+id/eventWhatsappLink"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_eventSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="30"
+                        android:layout_marginTop="20dp"
+                        android:hint="Event Slot"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:id="@+id/eventSlot"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/buttonCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginEnd="150dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Create" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+</FrameLayout>

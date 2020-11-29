@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "694305399759",
+    "firebase_url": "https://selfless-8cc3e.firebaseio.com",
+    "project_id": "selfless-8cc3e",
+    "storage_bucket": "selfless-8cc3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694305399759:android:0c8e6b112aad4c0bb5a8ba",
+        "android_client_info": {
+          "package_name": "com.example.eventdetails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694305399759-bvqit30bbbtmk0botaekbmhh70v1leri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZxIzYRR6bTpSW-G7ype_xFbBY6VM0yGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694305399759-bvqit30bbbtmk0botaekbmhh70v1leri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
