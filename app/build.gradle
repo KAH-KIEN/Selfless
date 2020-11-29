@@ -66,4 +66,5 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    implementation 'com.github.kimkevin:cachepot:1.2.0'
 }

@@ -7,13 +7,16 @@ import android.view.*
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
-import org.w3c.dom.Text
+import com.github.kimkevin.cachepot.CachePot
+
+
+
 
 
 class EventDetailsFragment : Fragment(), View.OnClickListener {
@@ -42,7 +45,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("Event Details Fragment","Created")
+        Log.i("Event Details Fragment", "Created")
 
         setHasOptionsMenu(true);
         eventDetailsViewModel =
@@ -56,6 +59,12 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         val textViewDesc:TextView = root.findViewById(R.id.textViewDesc)
 
         val model= ViewModelProviders.of(requireActivity()).get(Communicator::class.java)
+
+        val eventID: String = CachePot.getInstance().pop(String::class.java)
+        Toast.makeText(context, "You click on item # $eventID", Toast.LENGTH_SHORT).show()
+        Log.i("Event ID", "$eventID")
+
+
 
         model.title.observe(viewLifecycleOwner,
             { o -> textViewTitle.text = o!!.toString() })
@@ -94,7 +103,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         val buttonQR: Button = root.findViewById(R.id.buttonQR)
 
         buttonQR.setOnClickListener {
-            Log.i("QR Button","Clicked")
+            Log.i("QR Button", "Clicked")
             requireView().findNavController().navigate(R.id.navigation_QRCode)
 
         }
