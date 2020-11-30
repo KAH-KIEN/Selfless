@@ -74,22 +74,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInput_eventDuration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="30"
-                        android:layout_marginTop="20dp"
-                        android:hint="Duration"
-                        android:inputType="number"
-                        android:id="@+id/eventDuration"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

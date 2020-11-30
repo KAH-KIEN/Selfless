@@ -11,7 +11,7 @@
         android:id="@+id/calendarTop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EDF4E2F2"
+        android:background="@color/lightPeach"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
 

@@ -18,7 +18,12 @@ import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.example.eventdetails.ui.Firebase.EventWrite
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -26,7 +31,6 @@ class CreateEvent : Fragment() {
     lateinit var editEventTitle: TextInputLayout
     lateinit var editEventDate:TextInputLayout
     lateinit var editEventTime: TextInputLayout
-    lateinit var editEventDuration:TextInputLayout
     lateinit var editEventLocation: TextInputLayout
     lateinit var editEventContact:TextInputLayout
     lateinit var editEventDescription: TextInputLayout
@@ -52,7 +56,6 @@ class CreateEvent : Fragment() {
         editEventTitle = root.findViewById(R.id.textInput_eventTitle)
         editEventDate = root.findViewById(R.id.textInput_eventDate)
         editEventTime = root.findViewById(R.id.textInput_eventTime)
-        editEventDuration = root.findViewById(R.id.textInput_eventDuration)
         editEventLocation = root.findViewById(R.id.textInput_eventLocation)
         editEventContact = root.findViewById(R.id.textInput_eventContact)
         editEventDescription = root.findViewById(R.id.textInput_eventDescription)
@@ -128,7 +131,6 @@ class CreateEvent : Fragment() {
         val eventTitle = editEventTitle.getEditText()?.getText().toString().trim()
         val eventDate = editEventDate.getEditText()?.getText().toString().trim()
         val eventTime = editEventTime.getEditText()?.getText().toString().trim()
-        val eventDuration = editEventDuration.getEditText()?.getText().toString().trim()
         val eventLocation = editEventLocation.getEditText()?.getText().toString().trim()
         val eventContact = editEventContact.getEditText()?.getText().toString().trim()
         val eventDescription = editEventDescription.getEditText()?.getText().toString().trim()
@@ -150,7 +152,6 @@ class CreateEvent : Fragment() {
             eventTitle,
             eventDate,
             eventTime,
-            eventDuration.toInt(),
             eventLocation,
             eventContact,
             eventDescription,
@@ -164,9 +165,24 @@ class CreateEvent : Fragment() {
             requireView().findNavController().navigate(R.id.navigation_home)
         }
 
+        val auth = Firebase.auth
+        val user = auth.currentUser
+        val userID = user?.uid
+        var listLength : Int = 0
+        val myRef = FirebaseDatabase.getInstance().reference.child("User")
+            .child("$userID").child("OrganisedEvents")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children)
+                {
+                    listLength++
+                }
+                myRef.setValue(eventID)
+            }
 
-
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
-
-
 }

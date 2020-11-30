@@ -5,7 +5,6 @@ data class EventRead(
         val eventTitle: String? = null,
         val eventDate: String? = null,
         val eventTime: String? = null,
-        val eventDuration: Int? = null,
         val eventLocation: String? = null,
         val eventContact: String? = null,
         val eventDescription: String? = null,
