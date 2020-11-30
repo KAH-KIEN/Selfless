@@ -114,4 +114,19 @@
         android:name="com.example.eventdetails.ui.LoginUser.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/volunteerEventsFragment"
+        android:name="com.example.eventdetails.ui.EventDetails.VolunteerEventsFragment"
+        android:label="volunteer_events_fragment"
+        tools:layout="@layout/volunteer_events_fragment" />
+    <fragment
+        android:id="@+id/userEventFragment"
+        android:name="com.example.eventdetails.ui.EventDetails.UserEventFragment"
+        android:label="user_event_fragment"
+        tools:layout="@layout/user_event_fragment" />
+    <fragment
+        android:id="@+id/fragment_qrscanner"
+        android:name="com.example.eventdetails.ui.EventDetails.QRScannerFragment"
+        android:label="fragment_qrscanner"
+        tools:layout="@layout/fragment_qrscanner" />
 </navigation>

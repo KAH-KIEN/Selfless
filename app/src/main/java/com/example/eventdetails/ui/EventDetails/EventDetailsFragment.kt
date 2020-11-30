@@ -9,20 +9,28 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.android.example.eventactivity.fragments.adapters.RecyclerAdapter
 import com.example.eventdetails.R
+import com.example.eventdetails.ui.Firebase.EventRead
 import com.github.kimkevin.cachepot.CachePot
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 
 
 class EventDetailsFragment : Fragment(), View.OnClickListener {
 
     private lateinit var eventDetailsViewModel: EventDetailsViewModel
+    val eventID: String = CachePot.getInstance().pop(String::class.java)
 
     /*override fun onCreate(inflater: LayoutInflater,
                           container: ViewGroup?,
@@ -46,8 +54,8 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("Event Details Fragment","Created")
-
+        Log.i("Event Details Fragment", "Created")
+        CachePot.getInstance().push(eventID)
         setHasOptionsMenu(true);
         eventDetailsViewModel =
             ViewModelProvider(this).get(EventDetailsViewModel::class.java)
@@ -61,8 +69,8 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
 
         val model= ViewModelProviders.of(requireActivity()).get(Communicator::class.java)
         val stringList: MutableList<String> = mutableListOf()
-        val eventID: String = CachePot.getInstance().pop(String::class.java)
-        Log.i("Lmao","$eventID")
+
+        Log.i("Lmao", "$eventID")
         val myRef = FirebaseDatabase.getInstance().reference.child("Events").child(eventID)
 
         myRef.addValueEventListener(object : ValueEventListener {
@@ -73,7 +81,14 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                 textViewLocation.text = snapshot.child("eventLocation").value.toString()
                 textViewPhoneNum.text = snapshot.child("eventContact").value.toString()
                 textViewDesc.text = snapshot.child("eventDescription").value.toString()
-                model.setMsgCommunicator(textViewTitle.text.toString(),textViewDate.text.toString(),textViewTime.text.toString(),textViewLocation.text.toString(),textViewPhoneNum.text.toString(),textViewDesc.text.toString())
+                model.setMsgCommunicator(
+                    textViewTitle.text.toString(),
+                    textViewDate.text.toString(),
+                    textViewTime.text.toString(),
+                    textViewLocation.text.toString(),
+                    textViewPhoneNum.text.toString(),
+                    textViewDesc.text.toString()
+                )
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -107,35 +122,100 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
 
         val imageButtonEditText:ImageButton = root.findViewById(R.id.imageButtonEditText)
 
-        model.passID("1234")
+
+
+
+        val auth = Firebase.auth
+        val user = auth.currentUser?.uid
+
+        val organiserRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("OrganisedEvents").orderByKey()
+        val organiserEventIDList: MutableList<String> = mutableListOf()
+
+        organiserRef.addValueEventListener(object : ValueEventListener {
+
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children)
+                {
+                    organiserEventIDList.add(item.value.toString())
+                }
+                if (eventID in organiserEventIDList)
+                {
+                    CachePot.getInstance().push(eventID)
+                    val manager = childFragmentManager
+                    val transaction: FragmentTransaction = manager.beginTransaction()
+                    transaction.replace(R.id.fragment, OrganiserEventsFragment())
+                    transaction.commit()
+
+                }
+                else
+                {
+                    val volunteerRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("VolunteeredEvents").orderByKey()
+                    val volunteerEventIDList: MutableList<String> = mutableListOf()
+                    volunteerRef.addValueEventListener(object :ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for (item in snapshot.children) {
+                                volunteerEventIDList.add(item.value.toString())
+                            }
+
+                            if (eventID in volunteerEventIDList)
+                            {
+                                CachePot.getInstance().push(eventID)
+                                val manager = childFragmentManager
+                                val transaction: FragmentTransaction = manager.beginTransaction()
+                                transaction.replace(R.id.fragment, VolunteerEventsFragment())
+                                transaction.commit()
+                            }
+                            else
+                            {
+                                CachePot.getInstance().push(eventID)
+                                val manager = childFragmentManager
+                                val transaction: FragmentTransaction = manager.beginTransaction()
+                                transaction.replace(R.id.fragment, UserEventFragment())
+                                transaction.commit()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
+
+
+        Log.i("Organiser Event ID List","$organiserEventIDList")
+
 
         imageButtonEditText.setOnClickListener {
 
             requireView().findNavController().navigate(R.id.navigation_editEvents)
-            /*val fragmentTransaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val fragmentTransaction: FragmentTransaction =
+                requireActivity().supportFragmentManager.beginTransaction()
 
-            val editEventsFragment: Fragment? = parentFragmentManager.findFragmentById(R.id.navigation_editEvents)
+            val editEventsFragment: Fragment? =
+                parentFragmentManager.findFragmentById(R.id.navigation_editEvents)
             if (editEventsFragment != null) {
-                fragmentTransaction.replace(R.id.nav_host_fragment,EditEventsFragment  )
+                fragmentTransaction.replace(R.id.nav_host_fragment, EditEventsFragment())
             }
-            fragmentTransaction.commit()*/
-        }
-
-        val buttonQR: Button = root.findViewById(R.id.buttonQR)
-
-        buttonQR.setOnClickListener {
-            Log.i("QR Button", "Clicked")
-            requireView().findNavController().navigate(R.id.navigation_QRCode)
-
+            fragmentTransaction.commit()
         }
 
 
-        /*val textView: TextView = root.findViewById(R.id.text_dashboard)
-        eventsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
+
+
         return root
     }
+
 
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
@@ -164,7 +244,67 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         TODO("Not yet implemented")
     }
 
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val manager = childFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
 
+        val auth = Firebase.auth
+        val user = auth.currentUser?.uid
+
+        val organiserRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("OrganisedEvents").orderByKey()
+        val organiserEventIDList: MutableList<String> = mutableListOf()
+
+        organiserRef.addValueEventListener(object : ValueEventListener {
+
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children)
+                {
+                    organiserEventIDList.add(item.value.toString())
+                }
+                if (eventID in organiserEventIDList)
+                {
+                    transaction.add(R.id.fragment, OrganiserEventsFragment())
+                    transaction.commit()
+
+
+                }
+                else
+                {
+                    val volunteerRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("VolunteeredEvents").orderByKey()
+                    val volunteerEventIDList: MutableList<String> = mutableListOf()
+                    volunteerRef.addValueEventListener(object :ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for (item in snapshot.children) {
+                                volunteerEventIDList.add(item.value.toString())
+                            }
+
+                            if (eventID in volunteerEventIDList)
+                            {
+                                transaction.add(R.id.fragment, VolunteerEventsFragment())
+                                transaction.commit()
+                            }
+                            else
+                            {
+                                transaction.add(R.id.fragment, UserEventFragment())
+                                transaction.commit()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }*/
 
 
 }
