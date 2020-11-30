@@ -30,10 +30,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_eventMain, R.id.navigation_myevents, R.id.navigation_achievements, R.id.navigation_profile))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
-
-
     }
 
     fun AppCompatActivity.replaceFragment(fragment: Fragment){
@@ -43,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 
     // create an action bar button
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {

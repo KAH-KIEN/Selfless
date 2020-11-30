@@ -47,6 +47,9 @@
                         android:layout_marginTop="20dp"
                         android:hint="Event Date"
                         android:inputType="date"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="false"
                         android:id="@+id/eventDate"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -63,6 +66,9 @@
                         android:layout_marginTop="20dp"
                         android:hint="Event Time"
                         android:inputType="time"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="false"
                         android:id="@+id/eventTime"/>
 
                 </com.google.android.material.textfield.TextInputLayout>

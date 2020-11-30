@@ -1,17 +1,26 @@
 package com.example.eventdetails.ui.CreateEvent
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.content.ContentValues.TAG
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.example.eventdetails.ui.Firebase.EventWrite
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.FirebaseDatabase
+import java.util.*
+
 
 class CreateEvent : Fragment() {
     lateinit var editEventTitle: TextInputLayout
@@ -24,14 +33,20 @@ class CreateEvent : Fragment() {
     lateinit var editEventWhatappsLink:TextInputLayout
     lateinit var editEventSlot: TextInputLayout
     lateinit var buttonCreate:Button
+    lateinit var eventDate:EditText
+    lateinit var eventTime:EditText
+    private var mDateSetListener: OnDateSetListener? = null
+    private var mTimeSetListener: TimePickerDialog.OnTimeSetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
         editEventTitle = root.findViewById(R.id.textInput_eventTitle)
@@ -44,10 +59,66 @@ class CreateEvent : Fragment() {
         editEventWhatappsLink = root.findViewById(R.id.textInput_eventWhatsappLink)
         editEventSlot = root.findViewById(R.id.textInput_eventSlot)
         buttonCreate = root.findViewById(R.id.buttonCreate)
+        eventDate = root.findViewById(R.id.eventDate)
+        eventTime = root.findViewById(R.id.eventTime)
+
+        eventDate.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                val cal = Calendar.getInstance()
+                val year = cal.get(Calendar.YEAR)
+                val month = cal.get(Calendar.MONTH)
+                val day = cal.get(Calendar.DAY_OF_MONTH)
+                val dialog = DatePickerDialog(
+                    requireActivity(),
+                    mDateSetListener,
+                    year, month, day)
+                dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+                dialog.show()
+            }
+        })
+
+        mDateSetListener = object: DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(datePicker: DatePicker, year:Int, month:Int, day:Int) {
+                //Jan is 0, Dec is 11
+                var months = month + 1
+                val date = "$day" + "/" + "$months" + "/" + "$year"
+                eventDate.text = Editable.Factory.getInstance().newEditable(date)
+            }
+        }
+
+        eventTime.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                val cal = Calendar.getInstance()
+                val hour = cal.get(Calendar.HOUR_OF_DAY)
+                val minutes = cal.get(Calendar.MINUTE)
+                val picker = TimePickerDialog(
+                    requireActivity(),
+                    mTimeSetListener,
+                    hour, minutes, false
+                )
+                picker.show()
+            }
+        })
+
+        mTimeSetListener = object: TimePickerDialog.OnTimeSetListener {
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                val am_pm:String
+                var hour: Int = hourOfDay
+                if (hourOfDay > 12)
+                {
+                    am_pm = "PM"
+                    hour = hourOfDay - 12
+                }
+                else
+                {
+                    am_pm = "AM"
+                }
+                val time = "$hour" + ":" + "$minute" + " $am_pm"
+                eventTime.text = Editable.Factory.getInstance().newEditable(time)
+            }
+        }
 
         buttonCreate.setOnClickListener{
-//            val eventTitle = editEventTitle.getEditText()!!.text.trim()
-//            Toast.makeText(requireActivity(), "You clicked on $eventTitle", Toast.LENGTH_SHORT).show()
             createEvent()
         }
         return root
@@ -74,8 +145,19 @@ class CreateEvent : Fragment() {
         val ref = FirebaseDatabase.getInstance().getReference("Events")
         val eventID = ref.push().key
 
-        val events = EventWrite(eventID.toString(), eventTitle, eventDate, eventTime, eventDuration.toInt(), eventLocation,
-                eventContact, eventDescription, eventWhatsapp, eventSlot.toInt(), eventRegister)
+        val events = EventWrite(
+            eventID.toString(),
+            eventTitle,
+            eventDate,
+            eventTime,
+            eventDuration.toInt(),
+            eventLocation,
+            eventContact,
+            eventDescription,
+            eventWhatsapp,
+            eventSlot.toInt(),
+            eventRegister
+        )
 
         ref.child(eventID.toString()).setValue(events).addOnCompleteListener{
             Toast.makeText(requireActivity(), "Event Created", Toast.LENGTH_SHORT).show()

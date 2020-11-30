@@ -23,7 +23,6 @@ class RecyclerAdapter(val context: Context, val eventList: ArrayList<EventRead>)
         val itemDuration = itemView?.findViewById<TextView>(R.id.textView7)
         val itemLocation = itemView?.findViewById<TextView>(R.id.textView8)
         val itemContact = itemView?.findViewById<TextView>(R.id.textView9)
-        //val communicator = Communicator()
 
         lateinit var itemID: String
 
