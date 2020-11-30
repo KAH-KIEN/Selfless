@@ -16,13 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:tabTextAppearance="@style/CustomTabStyle"
-            app:tabBackground="@color/pink"
+            app:tabBackground="@color/white"
             app:tabGravity="fill"
             app:tabInlineLabel="true"
             app:tabMode="fixed"
-            app:tabTextColor="@android:color/white"
-            />
+            app:tabTextAppearance="@style/CustomTabStyle"
+            app:tabTextColor="@color/peach" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
