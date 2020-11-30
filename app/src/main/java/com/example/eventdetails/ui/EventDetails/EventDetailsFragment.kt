@@ -120,7 +120,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         model.desc.observe(viewLifecycleOwner,
             { o -> textViewDesc.text = o!!.toString() })
 
-        val imageButtonEditText:ImageButton = root.findViewById(R.id.imageButtonEditText)
+        /*val imageButtonEditText:ImageButton = root.findViewById(R.id.imageButtonEditText)*/
 
 
 
@@ -199,8 +199,8 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         Log.i("Organiser Event ID List","$organiserEventIDList")
 
 
-        imageButtonEditText.setOnClickListener {
-
+        /*imageButtonEditText.setOnClickListener {
+            CachePot.getInstance().push(eventID)
             requireView().findNavController().navigate(R.id.navigation_editEvents)
             val fragmentTransaction: FragmentTransaction =
                 requireActivity().supportFragmentManager.beginTransaction()
@@ -211,7 +211,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                 fragmentTransaction.replace(R.id.nav_host_fragment, EditEventsFragment())
             }
             fragmentTransaction.commit()
-        }
+        }*/
 
 
 

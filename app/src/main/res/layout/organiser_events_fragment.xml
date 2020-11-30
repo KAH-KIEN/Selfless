@@ -8,6 +8,17 @@
     android:clickable="true"
     tools:context=".ui.EventDetails.OrganiserEventsFragment">
 
+    <ImageButton
+        android:id="@+id/imageButtonEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCompleteOrganiser"
+        app:layout_constraintStart_toEndOf="@+id/buttonCompleteOrganiser"
+        app:layout_constraintTop_toTopOf="@+id/buttonCompleteOrganiser"
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
+
     <Button
         android:id="@+id/buttonQR"
         android:layout_width="wrap_content"

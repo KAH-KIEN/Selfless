@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
@@ -44,6 +45,21 @@ class OrganiserEventsFragment : Fragment() {
             transaction.add(R.id.nav_view,QRCodeFragment())
             transaction.commit()*/
 
+        }
+
+        val imageButtonEditText = root.findViewById<ImageButton>(R.id.imageButtonEditText)
+        imageButtonEditText.setOnClickListener {
+            CachePot.getInstance().push(eventID)
+            requireView().findNavController().navigate(R.id.navigation_editEvents)
+            val fragmentTransaction: FragmentTransaction =
+                requireActivity().supportFragmentManager.beginTransaction()
+
+            val editEventsFragment: Fragment? =
+                parentFragmentManager.findFragmentById(R.id.navigation_editEvents)
+            if (editEventsFragment != null) {
+                fragmentTransaction.replace(R.id.nav_host_fragment, EditEventsFragment())
+            }
+            fragmentTransaction.commit()
         }
 
 

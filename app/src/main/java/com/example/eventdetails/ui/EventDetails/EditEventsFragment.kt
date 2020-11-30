@@ -16,6 +16,10 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
+import com.github.kimkevin.cachepot.CachePot
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class EditEventsFragment : Fragment() {
 
@@ -23,6 +27,7 @@ class EditEventsFragment : Fragment() {
         fun newInstance() = EditEventsFragment()
     }
 
+    val eventID: String = CachePot.getInstance().pop(String::class.java)
     private lateinit var viewModel: EditEventsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -104,15 +109,21 @@ class EditEventsFragment : Fragment() {
 
         val buttonEditSave: Button = root.findViewById(R.id.buttonEditSave)
 
-
+        val myRef = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
 
         buttonEditSave.setOnClickListener {
             model!!.setMsgCommunicator(editTextTitle.text.toString(),editTextDate.text.toString(),editTextTime.text.toString(),editTextLocation.text.toString(),editTextPhoneNum.text.toString(),editTextDesc.text.toString())
-            textViewTitle.text = editTextTitle.text
+            myRef.child("eventTitle").setValue(editTextTitle.text.toString())
+            myRef.child("eventDate").setValue(editTextDate.text.toString())
+            myRef.child("eventTime").setValue(editTextTime.text.toString())
+            myRef.child("eventLocation").setValue(editTextLocation.toString())
+            myRef.child("eventDescription").setValue(editTextDesc.text.toString())
+            /*textViewTitle.text = editTextTitle.text
             textViewDate.text = editTextDate.text
             textViewTime.text = editTextTime.text
             textViewLocation.text = editTextLocation.text
-            textViewDesc.text = editTextDesc.text
+            textViewDesc.text = editTextDesc.text*/
+            CachePot.getInstance().push(eventID)
             requireView().findNavController().navigate(R.id.navigation_eventDetails)
         }
         return root
