@@ -32,7 +32,6 @@ class RecyclerAdapter(val context: Context, val eventList: ArrayList<EventRead>)
                 val position: Int = adapterPosition
                 Toast.makeText(itemView?.context, "You click on item # ${position + 1}, $itemID", Toast.LENGTH_SHORT).show()
                 CachePot.getInstance().push(itemID);
-                //communicater.passID(itemID)
                 itemView?.findNavController().navigate(R.id.navigation_eventDetails)
             }
         }

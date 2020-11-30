@@ -49,7 +49,7 @@
                 <com.github.sundeepk.compactcalendarview.CompactCalendarView
                     android:id="@+id/compactcalendar_view"
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
+                    android:layout_height="260dp"
                     app:compactCalendarBackgroundColor="@color/white"
                     app:compactCalendarCurrentDayBackgroundColor="#E57373"
                     app:compactCalendarCurrentSelectedDayBackgroundColor="@color/peach"
@@ -69,12 +69,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/DateLayout"
             android:layout_width="360dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="70dp"
             android:background="@drawable/rounded_corner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -194,6 +194,17 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/register" />
 
     </RelativeLayout>
 
