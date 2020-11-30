@@ -141,6 +141,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                 }
                 if (eventID in organiserEventIDList)
                 {
+                    if (!isAdded) return;
                     CachePot.getInstance().push(eventID)
                     val manager = childFragmentManager
                     val transaction: FragmentTransaction = manager.beginTransaction()
@@ -161,6 +162,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                             if (eventID in volunteerEventIDList)
                             {
                                 CachePot.getInstance().push(eventID)
+                                if (!isAdded) return;
                                 val manager = childFragmentManager
                                 val transaction: FragmentTransaction = manager.beginTransaction()
                                 transaction.replace(R.id.fragment, VolunteerEventsFragment())
@@ -168,6 +170,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                             }
                             else
                             {
+                                if (!isAdded) return;
                                 CachePot.getInstance().push(eventID)
                                 val manager = childFragmentManager
                                 val transaction: FragmentTransaction = manager.beginTransaction()
