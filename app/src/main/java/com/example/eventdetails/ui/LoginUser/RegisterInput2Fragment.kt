@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
+import com.example.eventdetails.databinding.FragmentLoginBinding
+import com.example.eventdetails.databinding.FragmentRegisterBinding
+import com.example.eventdetails.databinding.FragmentRegisterInput2Binding
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +28,8 @@ class RegisterInput2 : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var registerInput2ViewModel: RegisterInput2ViewModel
     private var db = FirebaseDatabase.getInstance().reference
+    private lateinit var binding: FragmentRegisterInput2Binding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,8 +47,8 @@ class RegisterInput2 : Fragment() {
         val textInput_password: TextInputLayout = root.findViewById(R.id.textInput_password)
         val textInput_phone: TextInputLayout = root.findViewById(R.id.textInput_phone)
         val textInput_email: TextInputLayout = root.findViewById(R.id.textInput_email)
+        val buttonProfileNext:Button = root.findViewById(R.id.buttonProfileNext)
 
-        val buttonProfileNext: Button = root.findViewById(R.id.buttonProfileNext)
         buttonProfileNext.setOnClickListener {
             if (textInput_name.getEditText()?.getText().toString().trim()
                     .isEmpty() || textInput_birthday.getEditText()!!.text.isEmpty() || textInput_phone.getEditText()!!.text.isEmpty() || textInput_password.getEditText()!!.text.isEmpty() ||textInput_email.getEditText()!!.text.isEmpty()
@@ -80,8 +85,4 @@ class RegisterInput2 : Fragment() {
         return root
     }
 
-
-    override fun onStart() {
-        super.onStart()
-    }
 }

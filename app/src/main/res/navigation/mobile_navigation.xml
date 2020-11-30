@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.example.eventdetails.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_myevents"
@@ -17,11 +22,7 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_myevents" />
 
-    <fragment
-        android:id="@+id/navigation_achievements"
-        android:name="com.example.eventdetails.ui.Achievement.achievementFragment"
-        android:label="@string/Achievements"
-        tools:layout="@layout/achievement_fragment" />
+
     <fragment
         android:id="@+id/navigation_editEvents"
         android:name="com.example.eventdetails.ui.EventDetails.EditEventsFragment"
@@ -80,11 +81,6 @@
             app:destination="@id/navigation_register" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_forgotPW"
-        android:name="com.example.eventdetails.ui.LoginUser.ForgotPWFragment"
-        android:label="ForgotPWFragment"
-        tools:layout="@layout/fragment_forgot_p_w"/>
     <fragment
         android:id="@+id/navigation_profilePic"
         android:name="com.example.eventdetails.ui.LoginUser.ProfilePicFragment"
