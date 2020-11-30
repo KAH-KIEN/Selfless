@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.example.eventactivity.fragments.adapters.RecyclerAdapter
 import com.example.eventdetails.R
 import com.example.eventdetails.ui.Firebase.EventRead
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 
 class VolunteerEventListFragment : Fragment() {
 
@@ -37,22 +39,53 @@ class VolunteerEventListFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        eventList = arrayListOf<EventRead>()
-        ref = FirebaseDatabase.getInstance().getReference("Events")
+        val eventIDList: MutableList<String> = mutableListOf()
 
-        ref.addValueEventListener(object : ValueEventListener {
+        eventList = arrayListOf<EventRead>()
+
+        val auth = Firebase.auth
+        val user = auth.currentUser?.uid
+        val myRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("VolunteeredEvents").orderByKey()
+        myRef.addValueEventListener(object : ValueEventListener {
+
+
             override fun onDataChange(snapshot: DataSnapshot) {
-                //check if there is any data exit in the database
-                if(snapshot!!.exists()){
-                    eventList.clear()
-                    for(e in snapshot.children){
-                        val events = e.getValue(EventRead::class.java)
-                        eventList.add(events!!)
+                for (item in snapshot.children)
+                {
+                    eventIDList.add(item.value.toString())
+
+                }
+
+
+                ref = FirebaseDatabase.getInstance().getReference("Events")
+
+                ref.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        //check if there is any data exit in the database
+                        if(snapshot!!.exists()){
+                            eventList.clear()
+                            for(e in snapshot.children){
+                                val events = e.getValue(EventRead::class.java)
+                                if (events?.eventID in eventIDList){
+                                    eventList.add(events!!)
+                                }
+
+                            }
+
+                            val adapter = context?.let { RecyclerAdapter(it, eventList) }
+                            recyclerView.adapter = adapter
+                        }
                     }
 
-                    val adapter = context?.let { RecyclerAdapter(it, eventList) }
-                    recyclerView.adapter = adapter
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
