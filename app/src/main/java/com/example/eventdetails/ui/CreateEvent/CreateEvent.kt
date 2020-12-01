@@ -3,16 +3,15 @@ package com.example.eventdetails.ui.CreateEvent
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
-import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
@@ -48,8 +47,8 @@ class CreateEvent : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
@@ -65,23 +64,23 @@ class CreateEvent : Fragment() {
         eventDate = root.findViewById(R.id.eventDate)
         eventTime = root.findViewById(R.id.eventTime)
 
-        eventDate.setOnClickListener(object: View.OnClickListener{
+        eventDate.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val cal = Calendar.getInstance()
                 val year = cal.get(Calendar.YEAR)
                 val month = cal.get(Calendar.MONTH)
                 val day = cal.get(Calendar.DAY_OF_MONTH)
                 val dialog = DatePickerDialog(
-                    requireActivity(),
-                    mDateSetListener,
-                    year, month, day)
+                        requireActivity(),
+                        mDateSetListener,
+                        year, month, day)
                 dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
                 dialog.show()
             }
         })
 
         mDateSetListener = object: DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(datePicker: DatePicker, year:Int, month:Int, day:Int) {
+            override fun onDateSet(datePicker: DatePicker, year: Int, month: Int, day: Int) {
                 //Jan is 0, Dec is 11
                 var months = month + 1
                 val date = "$day" + "/" + "$months" + "/" + "$year"
@@ -89,15 +88,15 @@ class CreateEvent : Fragment() {
             }
         }
 
-        eventTime.setOnClickListener(object: View.OnClickListener {
+        eventTime.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val cal = Calendar.getInstance()
                 val hour = cal.get(Calendar.HOUR_OF_DAY)
                 val minutes = cal.get(Calendar.MINUTE)
                 val picker = TimePickerDialog(
-                    requireActivity(),
-                    mTimeSetListener,
-                    hour, minutes, false
+                        requireActivity(),
+                        mTimeSetListener,
+                        hour, minutes, false
                 )
                 picker.show()
             }
@@ -128,36 +127,37 @@ class CreateEvent : Fragment() {
     }
 
     private fun createEvent(){
+        val eventWhatsapp = editEventWhatappsLink.getEditText()?.getText().toString().trim()
+        val eventRegister: Int = 0
+
+        if (!validateEventTitle() or !validateEventDate() or !validateEventTime()
+                or !validateEventLocation() or !validateEventContact() or !validateEventDescription()
+                or !validateEventSlot()) {
+            return
+        }
+
         val eventTitle = editEventTitle.getEditText()?.getText().toString().trim()
         val eventDate = editEventDate.getEditText()?.getText().toString().trim()
         val eventTime = editEventTime.getEditText()?.getText().toString().trim()
         val eventLocation = editEventLocation.getEditText()?.getText().toString().trim()
         val eventContact = editEventContact.getEditText()?.getText().toString().trim()
         val eventDescription = editEventDescription.getEditText()?.getText().toString().trim()
-        val eventWhatsapp = editEventWhatappsLink.getEditText()?.getText().toString().trim()
         val eventSlot = editEventSlot.getEditText()?.getText().toString().trim()
-        val eventRegister: Int = 0
-
-
-        if(eventTitle.isEmpty()){
-            editEventTime.error = "Please enter a name"
-            return
-        }
 
         val ref = FirebaseDatabase.getInstance().getReference("Events")
         val eventID = ref.push().key
 
         val events = EventWrite(
-            eventID.toString(),
-            eventTitle,
-            eventDate,
-            eventTime,
-            eventLocation,
-            eventContact,
-            eventDescription,
-            eventWhatsapp,
-            eventSlot.toInt(),
-            eventRegister
+                eventID.toString(),
+                eventTitle,
+                eventDate,
+                eventTime,
+                eventLocation,
+                eventContact,
+                eventDescription,
+                eventWhatsapp,
+                eventSlot.toInt(),
+                eventRegister
         )
 
         ref.child(eventID.toString()).setValue(events).addOnCompleteListener{
@@ -173,8 +173,7 @@ class CreateEvent : Fragment() {
                 .child("$userID").child("OrganisedEvents")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children)
-                {
+                for (item in snapshot.children) {
                     listLength++
                 }
                 myRef.child("$listLength").setValue(eventID.toString())
@@ -186,5 +185,90 @@ class CreateEvent : Fragment() {
         })
 
 
+    }
+
+    private fun validateEventTitle():Boolean {
+        val eventTitle = editEventTitle.getEditText()?.getText().toString().trim()
+        return if (eventTitle.isEmpty())
+        {
+            editEventTitle.setError("Field can't be empty")
+            false
+        }
+        else if (eventTitle.length > 30)
+        {
+            editEventTitle.setError("Event title too long")
+            false
+        }
+        else
+        {
+            editEventTitle.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventDate(): Boolean {
+        val eventDate = editEventDate.getEditText()?.getText().toString().trim()
+        return if (eventDate.isEmpty()) {
+            editEventDate.setError("Field can't be empty")
+            false
+        } else {
+            editEventDate.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventTime(): Boolean {
+        val eventTime = editEventTime.getEditText()?.getText().toString().trim()
+        return if (eventTime.isEmpty()) {
+            editEventTime.setError("Field can't be empty")
+            false
+        } else {
+            editEventDate.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventLocation(): Boolean {
+        val eventLocation = editEventLocation.getEditText()?.getText().toString().trim()
+        return if (eventLocation.isEmpty()) {
+            editEventLocation.setError("Field can't be empty")
+            false
+        } else {
+            editEventLocation.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventContact(): Boolean {
+        val eventContact = editEventContact.getEditText()?.getText().toString().trim()
+        return if (eventContact.isEmpty()) {
+            editEventContact.setError("Field can't be empty")
+            false
+        } else {
+            editEventContact.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventDescription(): Boolean {
+        val eventDescription = editEventDescription.getEditText()?.getText().toString().trim()
+        return if (eventDescription.isEmpty()) {
+            editEventDescription.setError("Field can't be empty")
+            false
+        } else {
+            editEventDescription.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventSlot(): Boolean {
+        val eventSlot = editEventSlot.getEditText()?.getText().toString().trim()
+        return if (eventSlot.isEmpty()) {
+            editEventSlot.setError("Field can't be empty")
+            false
+        } else {
+            editEventSlot.setError(null)
+            true
+        }
     }
 }

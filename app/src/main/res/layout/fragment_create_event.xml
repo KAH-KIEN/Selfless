@@ -22,7 +22,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:helperText="*Required field"
+                    app:counterMaxLength="30">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -38,7 +41,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventDate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -57,7 +61,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventTime"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -76,7 +81,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventLocation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -92,7 +98,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventContact"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -108,7 +115,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -124,7 +132,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventWhatsappLink"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true">
 
                     <EditText
                         android:layout_width="match_parent"
@@ -140,7 +149,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput_eventSlot"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="3"
+                    app:helperText="*Required field">
 
                     <EditText
                         android:layout_width="match_parent"
