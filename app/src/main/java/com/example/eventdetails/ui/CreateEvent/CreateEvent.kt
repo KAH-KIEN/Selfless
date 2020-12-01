@@ -170,19 +170,21 @@ class CreateEvent : Fragment() {
         val userID = user?.uid
         var listLength : Int = 0
         val myRef = FirebaseDatabase.getInstance().reference.child("User")
-            .child("$userID").child("OrganisedEvents")
-        myRef.addValueEventListener(object : ValueEventListener {
+                .child("$userID").child("OrganisedEvents")
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (item in snapshot.children)
                 {
                     listLength++
                 }
-                myRef.setValue(eventID)
+                myRef.child("$listLength").setValue(eventID.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
+
+
     }
 }
