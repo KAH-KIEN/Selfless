@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.Events.fragments.CalendarFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
 
     <RelativeLayout
         android:id="@+id/calendarTop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/lightPeach"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
@@ -36,6 +43,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_width="wrap_content"
+            android:id="@+id/upper"
             android:background="@drawable/background_calender">
 
             <RelativeLayout
@@ -207,5 +215,7 @@
             android:text="@string/register" />
 
     </RelativeLayout>
+
+    </ScrollView>>
 
 </FrameLayout>
