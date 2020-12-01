@@ -8,9 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class VolunteerEventsFragment : Fragment() {
 
@@ -28,6 +33,21 @@ class VolunteerEventsFragment : Fragment() {
         val root = inflater.inflate(R.layout.volunteer_events_fragment, container, false)
         val buttonComplete = root.findViewById<Button>(R.id.buttonCompleteVolunteer)
         Log.i("ButtonComplete","$buttonComplete")
+        val ref = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
+        var whatsAppLink :String
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                whatsAppLink = snapshot.child("eventWhatsapp").value.toString()
+                val textViewWhatsApp: TextView = root.findViewById(R.id.textViewWhatsAppVolunteer)
+                textViewWhatsApp.text = whatsAppLink
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
         buttonComplete.setOnClickListener {
             Log.i("OnClickButtonComplete","Clicked")
             CachePot.getInstance().push(eventID)

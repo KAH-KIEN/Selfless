@@ -1,8 +1,5 @@
 package com.example.eventdetails.ui.EventDetails
 
-import android.content.ContentValues.TAG
-import android.graphics.Bitmap
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class OrganiserEventsFragment : Fragment() {
 
@@ -36,6 +35,20 @@ class OrganiserEventsFragment : Fragment() {
         val root = inflater.inflate(R.layout.organiser_events_fragment, container, false)
         val buttonQR = root.findViewById<Button>(R.id.buttonQR)
         Log.i("QRButton", "$buttonQR")
+        val ref = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
+        var whatsAppLink :String
+        ref.addValueEventListener(object :ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                whatsAppLink = snapshot.child("eventWhatsapp").value.toString()
+                val textViewWhatsApp:TextView= root.findViewById(R.id.textViewWhatsAppOrganiser)
+                textViewWhatsApp.text = whatsAppLink
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
         buttonQR.setOnClickListener {
             Log.i("QRButton2", "Clicked")
             CachePot.getInstance().push(eventID)

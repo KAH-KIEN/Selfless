@@ -9,7 +9,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="62dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,12 +46,12 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="16dp"
-                    app:srcCompat="@drawable/ic_baseline_timelapse_24"
+                    android:layout_marginLeft="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextTime"
                     app:layout_constraintEnd_toStartOf="@+id/editTextTime"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp" />
+                    app:srcCompat="@drawable/ic_baseline_timelapse_24" />
 
                 <EditText
                     android:id="@+id/editTextPhoneNum"
@@ -124,6 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="49dp"
                     android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
@@ -135,40 +138,39 @@
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="4dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="16dp"
-                    app:srcCompat="@drawable/ic_baseline_calendar_today_24"
+                    android:layout_marginLeft="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextDate"
                     app:layout_constraintEnd_toStartOf="@+id/editTextDate"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp" />
+                    app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                 <ImageView
                     android:id="@+id/imageView10"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="16dp"
-                    app:srcCompat="@drawable/ic_baseline_location_on_24"
+                    android:layout_marginLeft="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextLocation"
                     app:layout_constraintEnd_toStartOf="@+id/editTextLocation"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp" />
+                    app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     app:srcCompat="@drawable/ic_baseline_call_24"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextPhoneNum"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,51 +179,66 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:inputType="textMultiLine"
                 android:text="Assisting for Children's Miracle Network Hospital that consist of 170 children's hospitals that provide 32M treatment each year."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="32dp" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <TextView
                 android:id="@+id/textViewSlot"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginTop="24dp"
                 android:text="Slot : "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
-                android:layout_marginLeft="24dp" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextDesc" />
 
             <TextView
                 android:id="@+id/textViewSlotNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="24dp"
                 android:text="10/30"
                 app:layout_constraintStart_toEndOf="@+id/textViewSlot"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
-                android:layout_marginLeft="8dp" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextDesc" />
 
             <Button
                 android:id="@+id/buttonEditSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
                 android:text="@string/Save"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDesc" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextWhatsApp" />
+
+            <EditText
+                android:id="@+id/editTextWhatsApp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSlotNum" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

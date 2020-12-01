@@ -28,7 +28,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="360dp"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="24dp"
@@ -53,7 +53,7 @@
                 <TextView
                     android:id="@+id/textViewPhoneNum"
                     android:layout_width="0dp"
-                    android:layout_height="16dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
                 <TextView
                     android:id="@+id/textViewTime"
                     android:layout_width="0dp"
-                    android:layout_height="16dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
@@ -80,7 +80,7 @@
                 <TextView
                     android:id="@+id/textViewLocation"
                     android:layout_width="0dp"
-                    android:layout_height="16dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
@@ -93,7 +93,7 @@
                 <TextView
                     android:id="@+id/textViewDate"
                     android:layout_width="0dp"
-                    android:layout_height="16dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"

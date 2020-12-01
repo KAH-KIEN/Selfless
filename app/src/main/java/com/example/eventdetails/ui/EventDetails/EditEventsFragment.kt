@@ -4,6 +4,7 @@ package com.example.eventdetails.ui.EventDetails
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -108,16 +112,28 @@ class EditEventsFragment : Fragment() {
 
 
         val buttonEditSave: Button = root.findViewById(R.id.buttonEditSave)
-
+        var editTextWhatsApp: EditText = root.findViewById(R.id.editTextWhatsApp)
         val myRef = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
+        myRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                editTextWhatsApp.setText(snapshot.child("eventWhatsapp").value.toString())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         buttonEditSave.setOnClickListener {
             model!!.setMsgCommunicator(editTextTitle.text.toString(),editTextDate.text.toString(),editTextTime.text.toString(),editTextLocation.text.toString(),editTextPhoneNum.text.toString(),editTextDesc.text.toString())
             myRef.child("eventTitle").setValue(editTextTitle.text.toString())
             myRef.child("eventDate").setValue(editTextDate.text.toString())
             myRef.child("eventTime").setValue(editTextTime.text.toString())
-            myRef.child("eventLocation").setValue(editTextLocation.toString())
+            myRef.child("eventLocation").setValue(editTextLocation.text.toString())
             myRef.child("eventDescription").setValue(editTextDesc.text.toString())
+            myRef.child("eventWhatsapp").setValue(editTextWhatsApp.text.toString())
             /*textViewTitle.text = editTextTitle.text
             textViewDate.text = editTextDate.text
             textViewTime.text = editTextTime.text
