@@ -41,6 +41,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView">
 
+                <ImageButton
+                    android:id="@+id/imageButtonEditDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginRight="56dp"
+                    app:srcCompat="@drawable/ic_baseline_edit_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="16dp"
@@ -71,21 +82,21 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView11"
                     app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
 
-                <EditText
+                <TextView
                     android:id="@+id/editTextTime"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="8dp"
                     android:inputType="time"
                     android:padding="0dp"
                     android:text="5 hours"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextLocation"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButtonEditTime"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextDate"
+                    android:layout_marginLeft="8dp" />
 
                 <EditText
                     android:id="@+id/editTextLocation"
@@ -103,23 +114,22 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
 
-                <EditText
+                <TextView
                     android:id="@+id/editTextDate"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     android:inputType="date"
                     android:padding="0dp"
                     android:text="15 Jul 2020 at 7 am"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextTime"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButtonEditDate"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
-                    app:layout_constraintVertical_chainStyle="spread" />
+                    app:layout_constraintVertical_chainStyle="spread"
+                    android:layout_marginLeft="8dp" />
 
                 <EditText
                     android:id="@+id/editTextTitle"
@@ -171,6 +181,17 @@
                     app:srcCompat="@drawable/ic_baseline_call_24"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextPhoneNum"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonEditTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginRight="56dp"
+                    app:srcCompat="@drawable/ic_baseline_edit_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -238,6 +259,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSlotNum" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
 

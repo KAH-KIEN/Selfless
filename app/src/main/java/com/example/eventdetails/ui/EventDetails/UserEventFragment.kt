@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
@@ -37,6 +38,7 @@ class UserEventFragment : Fragment() {
         val userID = user?.uid
         var listLength : Int = 0
         val myRef = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("VolunteeredEvents")
+        val myRef2 =FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
         myRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (item in snapshot.children)
@@ -56,7 +58,28 @@ class UserEventFragment : Fragment() {
             Log.i("OnClickRegisterButton","$buttonRegister")
             if (user != null) {
                 val userID = auth.currentUser?.uid
-                myRef.child("$listLength").setValue(eventID)
+
+                var registerCount : Long
+                myRef2.addListenerForSingleValueEvent(object :ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        registerCount = snapshot.child("eventRegister").value as Long
+                        if (registerCount < (snapshot.child("eventSlot").value as Long))
+                        {
+                            myRef2.child("eventRegister").setValue((++registerCount))
+                            myRef.child("$listLength").setValue(eventID)
+                        }
+                        else
+                        {
+                            Toast.makeText(activity, "Sorry, event is full.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
+
             }
         }
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
@@ -27,13 +28,14 @@ class OrganiserEventsFragment : Fragment() {
 
     private lateinit var viewModel: OrganiserEventsViewModel
     val eventID: String = CachePot.getInstance().pop(String::class.java)
-
+    
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val root = inflater.inflate(R.layout.organiser_events_fragment, container, false)
         val buttonQR = root.findViewById<Button>(R.id.buttonQR)
+        val buttonComplete = root.findViewById<Button>(R.id.buttonCompleteOrganiser)
         Log.i("QRButton", "$buttonQR")
         val ref = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
         var whatsAppLink :String
@@ -58,6 +60,12 @@ class OrganiserEventsFragment : Fragment() {
             transaction.add(R.id.nav_view,QRCodeFragment())
             transaction.commit()*/
 
+        }
+
+        buttonComplete.setOnClickListener {
+            CachePot.getInstance().push(eventID)
+            Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
+            requireView().findNavController().navigate(R.id.navigation_home)
         }
 
         val imageButtonEditText = root.findViewById<ImageButton>(R.id.imageButtonEditText)

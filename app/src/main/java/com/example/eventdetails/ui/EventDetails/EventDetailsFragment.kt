@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 
 
 class EventDetailsFragment : Fragment(), View.OnClickListener {
@@ -66,7 +67,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         val textViewLocation:TextView = root.findViewById(R.id.textViewLocation)
         val textViewPhoneNum:TextView = root.findViewById(R.id.textViewPhoneNum)
         val textViewDesc:TextView = root.findViewById(R.id.textViewDesc)
-
+        val textViewSlotNum: TextView = root.findViewById(R.id.textViewSlotNum)
         val model= ViewModelProviders.of(requireActivity()).get(Communicator::class.java)
         val stringList: MutableList<String> = mutableListOf()
 
@@ -81,6 +82,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                 textViewLocation.text = snapshot.child("eventLocation").value.toString()
                 textViewPhoneNum.text = snapshot.child("eventContact").value.toString()
                 textViewDesc.text = snapshot.child("eventDescription").value.toString()
+                textViewSlotNum.text = snapshot.child("eventRegister").value.toString() + "/" + snapshot.child("eventSlot").value.toString()
                 model.setMsgCommunicator(
                     textViewTitle.text.toString(),
                     textViewDate.text.toString(),
@@ -88,6 +90,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                     textViewLocation.text.toString(),
                     textViewPhoneNum.text.toString(),
                     textViewDesc.text.toString()
+
                 )
             }
 

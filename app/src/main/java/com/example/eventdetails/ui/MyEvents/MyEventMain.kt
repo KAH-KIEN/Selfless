@@ -56,7 +56,7 @@ class MyEventMain : Fragment() {
         val user = auth.currentUser
         if(user == null)
         {
-            Toast.makeText(getActivity(), "User not logged in", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "User not logged in", Toast.LENGTH_SHORT).show()
             requireView().findNavController().navigate(R.id.navigation_login)
 
         }

@@ -17,7 +17,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 
 class QRScannerFragment : Fragment() {
 
-
+    val eventID: String = CachePot.getInstance().pop(String::class.java)
     companion object {
         fun newInstance() = QRScannerFragment()
     }
@@ -51,8 +51,19 @@ class QRScannerFragment : Fragment() {
         if (result != null) {
             if (result.contents == null) {
                 Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
+                CachePot.getInstance().push(eventID)
+                requireView().findNavController().navigate(R.id.navigation_home)
             } else {
                 Toast.makeText(context, "Scanned : " + result.contents, Toast.LENGTH_LONG).show()
+                if (result.contents == eventID) {
+                    CachePot.getInstance().push(eventID)
+                    Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
+                }
+                else
+                {
+                    Toast.makeText(context, "Wrong QRCode!", Toast.LENGTH_LONG).show()
+                }
+
                 requireView().findNavController().navigate(R.id.navigation_home)
             }
         }
