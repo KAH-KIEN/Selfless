@@ -15,16 +15,8 @@ import com.google.firebase.database.*
 
 class ListFragment : Fragment() {
 
-//    private var titleList = mutableListOf<String>()
-//    private var dateList = mutableListOf<String>()
-//    private var durationList = mutableListOf<String>()
-//    private var locationList = mutableListOf<String>()
-//    private var contactList = mutableListOf<String>()
-
     lateinit var ref: DatabaseReference
-    //lateinit var eventList: MutableList<Event>
     lateinit var eventList : ArrayList<EventRead>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +30,6 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view: View = LayoutInflater.from(activity).inflate(R.layout.fragment_list, container, false)
-
-        //eventList = mutableListOf()
         val recyclerView: RecyclerView = view.findViewById(R.id.recycleList)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -63,48 +53,9 @@ class ListFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                //do whatever you need
             }
-
         })
-
-
         return view
     }
-
-
-//    private fun addToList(eventTitle: String, eventDate: String, eventDuration: String, eventLocation: String, eventContact: String){
-//        titleList.add(eventTitle)
-//        dateList.add(eventDate)
-//        durationList.add(eventDuration)
-//        locationList.add(eventLocation)
-//        contactList.add(eventContact)
-//    }
-//
-//    private fun postToList(){
-//        for (i in 1..5)
-//            addToList("Title $i", "Date $i", "Duration $i", "Location $i", "Contact $i")
-//    }
-
-
-//        postToList()
-//
-//        val recyclerView: RecyclerView = view.findViewById(R.id.recycleList);
-//        recyclerView.layoutManager = LinearLayoutManager(this.context)
-//        recyclerView.adapter = RecyclerAdapter(titleList, dateList, durationList, locationList, contactList)
-
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL
-//                recyclerview.setLayoutManager(layoutManager);
-//        recyclerview.setHasFixedSize(true);
-//        recyclerviewAdapter adapter = new recyclerviewAdapterAdapter(listdata,getActivity());
-//        recyclerview.setAdapter(adapter);
-
-//        val recyclerView: RecyclerView = view.findViewById(R.id.recycleList);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//        //recyclerView.setAdapter(new RandomNumListAdapter(1234));
-//        recyclerView.adapter = RecyclerAdapter(titleList, dateList, durationList, locationList, contactList)
-
-
 }

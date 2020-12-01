@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:tabTextAppearance="@style/CustomTabStyle"
-            app:tabBackground="@color/pink"
+            app:tabBackground="@color/peach"
             app:tabGravity="fill"
             app:tabInlineLabel="true"
             app:tabMode="fixed"
@@ -29,6 +29,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightPeach"
         android:layout_below="@+id/appBarLayout" >
 
     </androidx.viewpager.widget.ViewPager>
@@ -39,10 +40,11 @@
         android:clickable="true"
         android:layout_gravity="end|bottom"
         app:fabSize="normal"
-        android:backgroundTint="@color/pink"
+        android:backgroundTint="@color/peach"
         android:elevation="6dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
+        app:tint="@color/white"
         android:src="@drawable/ic_baseline_add_24" />
 
 </FrameLayout>

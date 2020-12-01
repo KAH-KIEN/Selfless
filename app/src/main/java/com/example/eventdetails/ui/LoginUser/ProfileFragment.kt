@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.eventdetails.R
+import com.example.eventdetails.databinding.FragmentEditProfileBinding
+import com.example.eventdetails.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -21,70 +25,78 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class ProfileFragment : Fragment() {
     private var db = FirebaseDatabase.getInstance().reference
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentProfileBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        auth = Firebase.auth
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        val buttonEditProfile : Button = root.findViewById(R.id.buttonEditProfile)
-        val buttonSignout : Button = root.findViewById(R.id.buttonSignout)
-        val textViewEmail:TextView = root.findViewById(R.id.textViewEmail)
-        val textViewName: TextView = root.findViewById(R.id.textViewName)
-        val textViewBirthday: TextView = root.findViewById(R.id.textViewBirthday)
-        val textViewContact: TextView = root.findViewById(R.id.textViewContact)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        buttonEditProfile.setOnClickListener {
+        auth = Firebase.auth
+
+        binding.buttonEditProfile.setOnClickListener {
             requireView().findNavController().navigate(R.id.navigation_editProfile)
         }
 
-        buttonSignout.setOnClickListener{
-            auth.signOut()
-            Toast.makeText(getActivity(), "User signed out", Toast.LENGTH_SHORT).show()
-            requireParentFragment().findNavController().navigate(R.id.navigation_login)
+        binding.buttonSignout.setOnClickListener{
+            val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_dialog_s_o,null);
+            val mBuilder = AlertDialog.Builder(requireContext())
+                .setView(mDialogView)
+                .setTitle("Sign out")
+
+            val mAlertDialog = mBuilder.show()
+            var confirm:Boolean = false
+            var textViewConfirmSO:TextView = mDialogView.findViewById(R.id.textViewConfirmSO)
+            var textViewCancel:TextView = mDialogView.findViewById(R.id.textViewCancel)
+            textViewConfirmSO.setOnClickListener{
+                mAlertDialog.dismiss()
+                auth.signOut()
+                Toast.makeText(getActivity(), "User signed out", Toast.LENGTH_SHORT).show()
+                requireParentFragment().findNavController().navigate(R.id.navigation_login)
+            }
+
+            textViewCancel.setOnClickListener{
+                mAlertDialog.dismiss()
+            }
+
         }
 
         val user = auth.currentUser
+        val model= ViewModelProviders.of(requireActivity()).get(Communicator2::class.java)
         if (user != null) {
             var userID = auth.getCurrentUser()?.uid
 
             db.child("User").child("$userID").addValueEventListener(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val model= ViewModelProviders.of(requireActivity()).get(Communicator2::class.java)
+
 
                     val name = dataSnapshot.child("name").getValue(String::class.java)
                     val birthday = dataSnapshot.child("birthday").getValue(String::class.java)
                     val contact = dataSnapshot.child("contact").getValue(String::class.java)
                     val email = dataSnapshot.child("email").getValue(String::class.java)
+                    val photo = dataSnapshot.child("photoURL").getValue(String::class.java)
 
-                    //User(name.toString(), birthday.toString(), contact.toString(), email.toString())
-                    //var user = User()
+                    if (photo != null){
+                        Picasso.get().load(photo).into(binding.profileImage)
+                        Log.d("load image","loaded $photo")
+                    }
+                    binding.textViewName.text = name
+                    binding.textViewBirthday.text = birthday
+                    binding.textViewContact.text = contact
+                    binding.textViewEmail.text = email
 
-                    textViewName.text = name
-                    Log.w("1", "$name")
-                    textViewBirthday.text = birthday
-                    textViewContact.text = contact
-                    textViewEmail.text = email
-/*
-                    model.name.observe(viewLifecycleOwner,
-                        { o -> textViewName.setText(o!!.toString()) })
 
-                    model.birthday.observe(viewLifecycleOwner,
-                        { o -> textViewBirthday.setText(o!!.toString())  })
-
-                    model.contact.observe(viewLifecycleOwner,
-                        { o -> textViewContact.setText(o!!.toString()) })
-
-                    model.email.observe(viewLifecycleOwner,
-                        { o -> textViewEmail.setText(o!!.toString()) })*/
-
-                    model!!.setMsgCommunicator(textViewName.text.toString(),textViewBirthday.text.toString(),textViewContact.text.toString(),textViewEmail.text.toString())
+                    model!!.setMsgCommunicator(binding.textViewName.text.toString(),binding.textViewBirthday.text.toString(),binding.textViewContact.text.toString(),binding.textViewEmail.text.toString())
 
                     Log.d("Get data", "Get value")
                 }
@@ -97,14 +109,9 @@ class ProfileFragment : Fragment() {
 
 
         setHasOptionsMenu(true)
-        return root
+        return view
     }
 
-    fun signOutt(){
-        auth.signOut()
-        Toast.makeText(getActivity(), "User signed out", Toast.LENGTH_SHORT).show()
-        requireView().findNavController().navigate(R.id.navigation_login)
-    }
     override fun onStart() {
         super.onStart()
         val user = auth.currentUser

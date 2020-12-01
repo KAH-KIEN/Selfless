@@ -37,13 +37,11 @@ class CalendarFragment : Fragment() {
 
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         val view: View = inflater!!.inflate(R.layout.fragment_calendar, container, false)
         val textDate: TextView = view.findViewById(R.id.textDate)
         val textCalendarViewTitle: TextView = view.findViewById(R.id.textCalendarViewTitle)
@@ -147,7 +145,7 @@ class CalendarFragment : Fragment() {
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
-                                        TODO("Not yet implemented")
+                                        //do whatever you need
                                     }
                                 })
                             }

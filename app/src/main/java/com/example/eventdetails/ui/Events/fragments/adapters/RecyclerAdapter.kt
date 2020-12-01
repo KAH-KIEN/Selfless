@@ -20,17 +20,16 @@ class RecyclerAdapter(val context: Context, val eventList: ArrayList<EventRead>)
 
         val itemTitle = itemView?.findViewById<TextView>(R.id.textView10)
         val itemDate = itemView?.findViewById<TextView>(R.id.textView6)
-        val itemDuration = itemView?.findViewById<TextView>(R.id.textView7)
+        val itemTime = itemView?.findViewById<TextView>(R.id.textView7)
         val itemLocation = itemView?.findViewById<TextView>(R.id.textView8)
         val itemContact = itemView?.findViewById<TextView>(R.id.textView9)
-        //val communicator = Communicator()
 
         lateinit var itemID: String
 
         init {
             itemView?.setOnClickListener {
                 val position: Int = adapterPosition
-                Toast.makeText(itemView?.context, "You click on item # ${position + 1}, $itemID", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(itemView?.context, "You click on item # ${position + 1}, $itemID", Toast.LENGTH_SHORT).show()
                 CachePot.getInstance().push(itemID);
                 itemView?.findNavController().navigate(R.id.navigation_eventDetails)
             }
@@ -39,7 +38,7 @@ class RecyclerAdapter(val context: Context, val eventList: ArrayList<EventRead>)
         fun bind(event: EventRead, context: Context){
             itemTitle?.text = event.eventTitle
             itemDate?.text = event.eventDate
-            itemDuration?.text = event.eventDuration.toString()
+            itemTime?.text = event.eventTime.toString()
             itemLocation?.text = event.eventLocation
             itemContact?.text = event.eventContact
             itemID = event.eventID.toString()

@@ -25,7 +25,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
