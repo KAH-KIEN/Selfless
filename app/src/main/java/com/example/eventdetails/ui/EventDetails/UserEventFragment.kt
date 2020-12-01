@@ -39,7 +39,7 @@ class UserEventFragment : Fragment() {
         var listLength : Int = 0
         val myRef = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("VolunteeredEvents")
         val myRef2 =FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
-        myRef.addValueEventListener(object : ValueEventListener{
+        /*myRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (item in snapshot.children)
                 {
@@ -51,7 +51,7 @@ class UserEventFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
-        })
+        })*/
 
         Log.i("RegisterButton","$buttonRegister")
         buttonRegister.setOnClickListener {
@@ -66,7 +66,9 @@ class UserEventFragment : Fragment() {
                         if (registerCount < (snapshot.child("eventSlot").value as Long))
                         {
                             myRef2.child("eventRegister").setValue((++registerCount))
-                            myRef.child("$listLength").setValue(eventID)
+                            myRef.push().setValue(eventID)
+                            CachePot.getInstance().push(eventID)
+                            requireView().findNavController().navigate(R.id.navigation_eventDetails)
                         }
                         else
                         {

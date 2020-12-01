@@ -8,213 +8,213 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:fillViewport="true"
-        android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:id="@+id/calendarTop"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightPeach"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/textDate"
+
+        <RelativeLayout
+            android:id="@+id/calendarTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:fontFamily="@font/anonymous_pro_bold_italic"
-            android:gravity="center_horizontal"
-            android:includeFontPadding="false"
-            android:text="March, 2020"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:paddingTop="50dp"
+            android:background="@color/lightPeach"
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_width="wrap_content"
-            android:id="@+id/upper"
-            android:background="@drawable/background_calender">
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/textDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="100dp"
+                android:fontFamily="@font/anonymous_pro_bold_italic"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="March, 2020"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
+            <LinearLayout
+                android:id="@+id/upper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/background_calender">
 
-                <com.github.sundeepk.compactcalendarview.CompactCalendarView
-                    android:id="@+id/compactcalendar_view"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    app:compactCalendarBackgroundColor="@color/white"
-                    app:compactCalendarCurrentDayBackgroundColor="#E57373"
-                    app:compactCalendarCurrentSelectedDayBackgroundColor="@color/peach"
-                    app:compactCalendarMultiEventIndicatorColor="#fff"
-                    app:compactCalendarTargetHeight="250dp"
-                    app:compactCalendarTextColor="@color/black"
-                    app:compactCalendarTextSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp">
+
+
+                    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+                        android:id="@+id/compactcalendar_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp"
+                        app:compactCalendarBackgroundColor="@color/white"
+                        app:compactCalendarCurrentDayBackgroundColor="#E57373"
+                        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/peach"
+                        app:compactCalendarMultiEventIndicatorColor="#fff"
+                        app:compactCalendarTargetHeight="250dp"
+                        app:compactCalendarTextColor="@color/black"
+                        app:compactCalendarTextSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/DateLayout"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/upper"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarTop"
+                tools:ignore="NotSibling">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="16dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_baseline_timelapse_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewTime"
+                    app:layout_constraintEnd_toStartOf="@+id/textCalendarViewTime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textCalendarViewPhoneNum"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView11"
+                    app:layout_constraintTop_toBottomOf="@+id/textCalendarViewLocation" />
+
+                <TextView
+                    android:id="@+id/textCalendarViewTime"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="-"
+                    app:layout_constraintBottom_toTopOf="@+id/textCalendarViewLocation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toBottomOf="@+id/textCalendarViewDate" />
+
+                <TextView
+                    android:id="@+id/textCalendarViewLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="-"
+                    app:layout_constraintBottom_toTopOf="@+id/textCalendarViewPhoneNum"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView10"
+                    app:layout_constraintTop_toBottomOf="@+id/textCalendarViewTime" />
+
+                <TextView
+                    android:id="@+id/textCalendarViewDate"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="-"
+                    app:layout_constraintBottom_toTopOf="@+id/textCalendarViewTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textCalendarViewTitle"
+                    app:layout_constraintVertical_chainStyle="spread" />
+
+                <TextView
+                    android:id="@+id/textCalendarViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Upcoming Events"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewDate"
+                    app:layout_constraintEnd_toStartOf="@+id/textCalendarViewDate"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_baseline_location_on_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewLocation"
+                    app:layout_constraintEnd_toStartOf="@+id/textCalendarViewLocation"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/DateLayout"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/upper"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/rounded_corner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calendarTop"
-            tools:ignore="NotSibling">
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:srcCompat="@drawable/ic_baseline_call_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewPhoneNum"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="16dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_baseline_timelapse_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewTime"
-                app:layout_constraintEnd_toStartOf="@+id/textCalendarViewTime"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textCalendarViewPhoneNum"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="-"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toBottomOf="@+id/textCalendarViewLocation" />
-
-            <TextView
-                android:id="@+id/textCalendarViewTime"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="-"
-                app:layout_constraintBottom_toTopOf="@+id/textCalendarViewLocation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/textCalendarViewDate" />
-
-            <TextView
-                android:id="@+id/textCalendarViewLocation"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="-"
-                app:layout_constraintBottom_toTopOf="@+id/textCalendarViewPhoneNum"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
-                app:layout_constraintTop_toBottomOf="@+id/textCalendarViewTime" />
-
-            <TextView
-                android:id="@+id/textCalendarViewDate"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="-"
-                app:layout_constraintBottom_toTopOf="@+id/textCalendarViewTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/textCalendarViewTitle"
-                app:layout_constraintVertical_chainStyle="spread" />
-
-            <TextView
-                android:id="@+id/textCalendarViewTitle"
+            <Button
+                android:id="@+id/buttonRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_below="@+id/DateLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="34dp"
                 android:layout_marginTop="8dp"
-                android:text="Upcoming Events"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="24dp"
+                android:text="@string/register" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_baseline_calendar_today_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewDate"
-                app:layout_constraintEnd_toStartOf="@+id/textCalendarViewDate"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_baseline_location_on_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewLocation"
-                app:layout_constraintEnd_toStartOf="@+id/textCalendarViewLocation"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/ic_baseline_call_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textCalendarViewPhoneNum"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/DateLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="34dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/register" />
-
-    </RelativeLayout>
+        </RelativeLayout>
 
     </ScrollView>>
 

@@ -173,12 +173,39 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
                             }
                             else
                             {
-                                if (!isAdded) return;
-                                CachePot.getInstance().push(eventID)
-                                val manager = childFragmentManager
-                                val transaction: FragmentTransaction = manager.beginTransaction()
-                                transaction.replace(R.id.fragment, UserEventFragment())
-                                transaction.commit()
+                                val completedRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("CompletedEvents").orderByKey()
+                                val completedEventIDList: MutableList<String> = mutableListOf()
+                                volunteerRef.addValueEventListener(object :ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        for (item in snapshot.children) {
+                                            completedEventIDList.add(item.value.toString())
+                                        }
+
+                                        if (eventID in completedEventIDList)
+                                        {
+                                            CachePot.getInstance().push(eventID)
+                                            if (!isAdded) return;
+                                            val manager = childFragmentManager
+                                            val transaction: FragmentTransaction = manager.beginTransaction()
+                                            transaction.replace(R.id.fragment, CompletedEventFragment())
+                                            transaction.commit()
+                                        }
+                                        else
+                                        {
+                                            if (!isAdded) return;
+                                            CachePot.getInstance().push(eventID)
+                                            val manager = childFragmentManager
+                                            val transaction: FragmentTransaction = manager.beginTransaction()
+                                            transaction.replace(R.id.fragment, UserEventFragment())
+                                            transaction.commit()
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        TODO("Not yet implemented")
+                                    }
+                                })
+
                             }
                         }
 

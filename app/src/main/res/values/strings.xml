@@ -59,4 +59,5 @@
     <string name="SignOutMsg">Sign out from Selfless?</string>
     <string name="cancel">Cancel</string>
     <string name="changePhoto">Change Photo</string>
+    <string name="EventCompleted">Thank You For Completing the Event!</string>
 </resources>

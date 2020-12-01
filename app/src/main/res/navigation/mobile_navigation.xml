@@ -19,14 +19,14 @@
     <fragment
         android:id="@+id/navigation_myevents"
         android:name="com.example.eventdetails.ui.MyEvents.MyEventMain"
-        android:label="@string/title_notifications"
+        android:label="My Events"
         tools:layout="@layout/fragment_myevents" />
 
 
     <fragment
         android:id="@+id/navigation_editEvents"
         android:name="com.example.eventdetails.ui.EventDetails.EditEventsFragment"
-        android:label="edit_events_fragment"
+        android:label="Edit Details"
         tools:layout="@layout/edit_events_fragment" />
 
     <fragment
@@ -37,12 +37,12 @@
     <fragment
         android:id="@+id/navigation_QRCode"
         android:name="com.example.eventdetails.ui.EventDetails.QRCodeFragment"
-        android:label="q_r_code_fragment"
+        android:label="QR Code"
         tools:layout="@layout/q_r_code_fragment" />
     <fragment
         android:id="@+id/navigation_eventDetails"
         android:name="com.example.eventdetails.ui.EventDetails.EventDetailsFragment"
-        android:label="fragment_eventdetails"
+        android:label="Event Details"
         tools:layout="@layout/fragment_eventdetails" />
     <fragment
         android:id="@+id/organiserEventsFragment"
@@ -123,6 +123,6 @@
     <fragment
         android:id="@+id/fragment_qrscanner"
         android:name="com.example.eventdetails.ui.EventDetails.QRScannerFragment"
-        android:label="fragment_qrscanner"
+        android:label="QR Scanner"
         tools:layout="@layout/fragment_qrscanner" />
 </navigation>

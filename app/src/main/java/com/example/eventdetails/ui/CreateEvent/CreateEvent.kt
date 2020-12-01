@@ -173,10 +173,8 @@ class CreateEvent : Fragment() {
                 .child("$userID").child("OrganisedEvents")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children) {
-                    listLength++
-                }
-                myRef.child("$listLength").setValue(eventID.toString())
+
+                myRef.push().setValue(eventID.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {

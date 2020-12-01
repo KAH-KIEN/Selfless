@@ -66,6 +66,8 @@ class OrganiserEventsFragment : Fragment() {
             CachePot.getInstance().push(eventID)
             Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
             requireView().findNavController().navigate(R.id.navigation_home)
+            FirebaseDatabase.getInstance().reference.child("Events").child("$eventID").removeValue()
+
         }
 
         val imageButtonEditText = root.findViewById<ImageButton>(R.id.imageButtonEditText)
