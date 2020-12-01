@@ -266,7 +266,12 @@ class CreateEvent : Fragment() {
         return if (eventSlot.isEmpty()) {
             editEventSlot.setError("Field can't be empty")
             false
-        } else {
+        }
+        else if (eventSlot == "0") {
+            editEventSlot.setError("Zero is not accepted")
+            false
+        }
+        else {
             editEventSlot.setError(null)
             true
         }
