@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
@@ -23,6 +22,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -47,8 +47,8 @@ class CreateEvent : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
@@ -71,9 +71,10 @@ class CreateEvent : Fragment() {
                 val month = cal.get(Calendar.MONTH)
                 val day = cal.get(Calendar.DAY_OF_MONTH)
                 val dialog = DatePickerDialog(
-                        requireActivity(),
-                        mDateSetListener,
-                        year, month, day)
+                    requireActivity(),
+                    mDateSetListener,
+                    year, month, day
+                )
                 dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
                 dialog.show()
             }
@@ -94,9 +95,9 @@ class CreateEvent : Fragment() {
                 val hour = cal.get(Calendar.HOUR_OF_DAY)
                 val minutes = cal.get(Calendar.MINUTE)
                 val picker = TimePickerDialog(
-                        requireActivity(),
-                        mTimeSetListener,
-                        hour, minutes, false
+                    requireActivity(),
+                    mTimeSetListener,
+                    hour, minutes, false
                 )
                 picker.show()
             }
@@ -106,16 +107,22 @@ class CreateEvent : Fragment() {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                 val am_pm:String
                 var hour: Int = hourOfDay
-                if (hourOfDay > 12)
-                {
+                var min: String
+                if (hourOfDay > 12) {
                     am_pm = "PM"
                     hour = hourOfDay - 12
                 }
-                else
-                {
+                else {
                     am_pm = "AM"
                 }
-                val time = "$hour" + ":" + "$minute" + " $am_pm"
+
+                if (minute < 10){
+                    min = "0" + minute.toString()
+                }else{
+                    min = minute.toString()
+                }
+
+                val time = "$hour" + ":" + "$min" + " $am_pm"
                 eventTime.text = Editable.Factory.getInstance().newEditable(time)
             }
         }
@@ -148,16 +155,16 @@ class CreateEvent : Fragment() {
         val eventID = ref.push().key
 
         val events = EventWrite(
-                eventID.toString(),
-                eventTitle,
-                eventDate,
-                eventTime,
-                eventLocation,
-                eventContact,
-                eventDescription,
-                eventWhatsapp,
-                eventSlot.toInt(),
-                eventRegister
+            eventID.toString(),
+            eventTitle,
+            eventDate,
+            eventTime,
+            eventLocation,
+            eventContact,
+            eventDescription,
+            eventWhatsapp,
+            eventSlot.toInt(),
+            eventRegister
         )
 
         ref.child(eventID.toString()).setValue(events).addOnCompleteListener{
@@ -181,24 +188,19 @@ class CreateEvent : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-
-
     }
 
     private fun validateEventTitle():Boolean {
         val eventTitle = editEventTitle.getEditText()?.getText().toString().trim()
-        return if (eventTitle.isEmpty())
-        {
+        return if (eventTitle.isEmpty()) {
             editEventTitle.setError("Field can't be empty")
             false
         }
-        else if (eventTitle.length > 30)
-        {
+        else if (eventTitle.length > 30) {
             editEventTitle.setError("Event title too long")
             false
         }
-        else
-        {
+        else {
             editEventTitle.setError(null)
             true
         }
@@ -206,10 +208,23 @@ class CreateEvent : Fragment() {
 
     private fun validateEventDate(): Boolean {
         val eventDate = editEventDate.getEditText()?.getText().toString().trim()
+        val currentDate = Date()
+        val myFormatString = "dd/MM/yy"
+        val formatter = SimpleDateFormat(myFormatString)
+        val givenDate = formatter.parse(eventDate)
+        val inputDate = givenDate.getTime()
+        val dateValidity = Date(inputDate)
+
+
         return if (eventDate.isEmpty()) {
             editEventDate.setError("Field can't be empty")
             false
-        } else {
+        }
+        else if(currentDate.time >= dateValidity.time){
+            editEventDate.setError("Invalid date")
+            false
+        }
+        else {
             editEventDate.setError(null)
             true
         }
@@ -221,7 +236,7 @@ class CreateEvent : Fragment() {
             editEventTime.setError("Field can't be empty")
             false
         } else {
-            editEventDate.setError(null)
+            editEventTime.setError(null)
             true
         }
     }

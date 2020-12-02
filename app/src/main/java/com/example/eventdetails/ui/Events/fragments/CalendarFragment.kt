@@ -1,5 +1,5 @@
 package com.android.example.eventactivity.fragments
-
+//Credit to SundeepK-CompactCalendarView
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
