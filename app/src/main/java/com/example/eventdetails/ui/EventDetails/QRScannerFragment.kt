@@ -12,6 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 
 
@@ -37,7 +43,7 @@ class QRScannerFragment : Fragment() {
 
 
         integrator.initiateScan()
-        
+
         return inflater.inflate(R.layout.fragment_qrscanner, container, false)
     }
 
@@ -55,14 +61,35 @@ class QRScannerFragment : Fragment() {
                 requireView().findNavController().navigate(R.id.navigation_home)
             } else {
                 Toast.makeText(context, "Scanned : " + result.contents, Toast.LENGTH_LONG).show()
-                if (result.contents == eventID) {
-                    CachePot.getInstance().push(eventID)
-                    Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
-                }
-                else
-                {
-                    Toast.makeText(context, "Wrong QRCode!", Toast.LENGTH_LONG).show()
-                }
+                val auth = Firebase.auth
+                val user = auth.currentUser
+                val userID = user?.uid
+                var listLength : Int = 0
+                val myRef = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("CompletedEvents")
+
+                myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        if (result.contents == eventID) {
+                            myRef.push().setValue(eventID)
+                            CachePot.getInstance().push(eventID)
+                            Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
+
+                        }
+                        else
+                        {
+                            Toast.makeText(context, "Wrong QRCode!", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+
+
 
                 requireView().findNavController().navigate(R.id.navigation_home)
             }
