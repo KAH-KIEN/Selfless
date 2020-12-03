@@ -1,15 +1,20 @@
 package com.android.example.eventactivity.fragments
 
+import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,6 +26,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 //Credits to kimkevin : CachePot
 
 class MapFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var currentLocation: Location
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val permissionCode = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +41,55 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater!!.inflate(R.layout.fragment_map, container, false)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFrag) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
-
+        // Ask for permission
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fetchLocation()
         return view
+    }
+
+    private fun fetchLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION
+            ) !=
+            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION
+            ) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), permissionCode
+            )
+            return
+        }
+
+        val task = fusedLocationProviderClient.lastLocation
+        task.addOnSuccessListener { location ->
+            if (location != null) {
+                currentLocation = location
+//                Toast.makeText(
+//                    requireActivity(), currentLocation.latitude.toString() + "" +
+//                            currentLocation.longitude, Toast.LENGTH_SHORT
+//                ).show()
+                val mapFragment = childFragmentManager.findFragmentById(R.id.mapFrag) as SupportMapFragment?
+                mapFragment?.getMapAsync(this)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            permissionCode -> if (grantResults.isNotEmpty() && grantResults[0] ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                //When permission are granted
+                //Call method
+                fetchLocation()
+            }
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -45,13 +98,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val setapakLatLng = LatLng(3.2791, 101.7410)
         val kuchingLatLng = LatLng(1.5535, 110.3593)
         val melakaLatLng = LatLng(2.1896, 102.2501)
-        val zoomLevel = 10f
+        val zoomLevel = 15f
 
         val kualaLumpur = googleMap.addMarker(
             MarkerOptions()
                 .position(kualaLumpurLatLng)
                 .title("Yellow House KL")
-                .snippet("Kuala Lumpur, 05/12/2020")
+                .snippet("Kuala Lumpur, 12/12/2020")
         )
         kualaLumpur.showInfoWindow()
 
@@ -67,7 +120,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             MarkerOptions()
                 .position(setapakLatLng)
                 .title("ZOO INVESTIGATORS")
-                .snippet("Setapak, 08/12/2020")
+                .snippet("Setapak, 16/12/2020")
         )
         setapak.showInfoWindow()
 
@@ -85,9 +138,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 .title("Lean In -马六甲老年关怀项目")
                 .snippet("Melaka, 27/12/2020")
         )
-        //melaka.showInfoWindow()
+        melaka.showInfoWindow()
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kualaLumpurLatLng, zoomLevel))
+        val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
+        val markerOptions = MarkerOptions().position(latLng)
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+        val currentLocation = googleMap.addMarker(markerOptions)
 
         googleMap.setOnInfoWindowClickListener(object : GoogleMap.OnInfoWindowClickListener {
             override fun onInfoWindowClick(p0: Marker) {

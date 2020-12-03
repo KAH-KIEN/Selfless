@@ -1,5 +1,5 @@
 package com.android.example.eventactivity.fragments
-
+//Credit to kimkevin-CachePot
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater

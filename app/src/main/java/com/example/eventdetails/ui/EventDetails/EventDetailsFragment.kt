@@ -101,7 +101,7 @@ class EventDetailsFragment : Fragment(), View.OnClickListener {
         })
 
 
-        Toast.makeText(context, "You click on item # $eventID", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "You click on item # $eventID", Toast.LENGTH_SHORT).show()
         Log.i("Event ID", "$eventID")
 
 
