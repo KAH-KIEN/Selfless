@@ -38,9 +38,9 @@ class QRCodeFragment : Fragment() {
         val root = inflater.inflate(R.layout.q_r_code_fragment, container, false)
         val model= ViewModelProviders.of(requireActivity()).get(Communicator::class.java)
         val eventID: String = CachePot.getInstance().pop(String::class.java)
-        //val bitmap = model.generateQRCode("12345")
+
         val imageViewQRCode : ImageView = root.findViewById(R.id.imageViewQRCode)
-        /*imageViewQRCode.setImageBitmap(bitmap)*/
+
 
 
         val writer = QRCodeWriter()

@@ -55,10 +55,6 @@ class VolunteerEventsFragment : Fragment() {
             Log.i("OnClickButtonComplete", "Clicked")
             CachePot.getInstance().push(eventID)
             requireView().findNavController().navigate(R.id.fragment_qrscanner)
-            /*val manager = parentFragmentManager
-            val transaction: FragmentTransaction = manager.beginTransaction()
-            transaction.add(R.id.nav_view,QRCodeFragment())
-            transaction.commit()*/
 
         }
 

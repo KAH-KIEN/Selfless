@@ -56,33 +56,10 @@ class EditEventsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.i("OnCreateView","View Created")
-        /*val root = inflater.inflate(R.layout.fragment_eventdetails, container, false)*//*
-        val textViewTitle:TextView = root.findViewById(R.id.textViewTitle)
-        val textViewDate:TextView = root.findViewById(R.id.textViewDate)
-        val textViewTime:TextView = root.findViewById(R.id.textViewTime)
-        val textViewLocation:TextView = root.findViewById(R.id.textViewLocation)
-        val textViewPhoneNum:TextView = root.findViewById(R.id.textViewPhoneNum)
-        val textViewDesc:TextView = root.findViewById(R.id.textViewDesc)*/
+
 
         val model= ViewModelProviders.of(requireActivity()).get(Communicator::class.java)
 
-        /*model.title.observe(viewLifecycleOwner,
-            { o -> textViewTitle.text = o!!.toString() })
-
-        model.date.observe(viewLifecycleOwner,
-            { o -> textViewDate.text = o!!.toString() })
-
-        model.time.observe(viewLifecycleOwner,
-            { o -> textViewTime.text = o!!.toString() })
-
-        model.location.observe(viewLifecycleOwner,
-            { o -> textViewLocation.text = o!!.toString() })
-
-        model.phoneNum.observe(viewLifecycleOwner,
-            { o -> textViewPhoneNum.text = o!!.toString() })
-
-        model.desc.observe(viewLifecycleOwner,
-            { o -> textViewDesc.text = o!!.toString() })*/
 
         val root= inflater.inflate(R.layout.edit_events_fragment, container, false)
         val root2 = inflater.inflate(R.layout.fragment_eventdetails, container, false)
@@ -131,13 +108,6 @@ class EditEventsFragment : Fragment() {
         model.desc.observe(viewLifecycleOwner,
             { o -> editTextDesc.setText(o!!.toString())})
 
-        val eventTitle = editTextTitle.getText().toString().trim()
-        val eventDate = editTextDate.getText().toString().trim()
-        val eventTime = editTextTime.getText().toString().trim()
-        val eventLocation = editTextLocation.getText().toString().trim()
-        val eventContact = editTextPhoneNum.getText().toString().trim()
-        val eventDescription = editTextDesc.getText().toString().trim()
-
 
         val buttonEditSave: Button = root.findViewById(R.id.buttonEditSave)
         var editTextWhatsApp: EditText = root.findViewById(R.id.editTextWhatsApp)
@@ -166,11 +136,7 @@ class EditEventsFragment : Fragment() {
                 myRef.child("eventLocation").setValue(editTextLocation.text.toString())
                 myRef.child("eventDescription").setValue(editTextDesc.text.toString())
                 myRef.child("eventWhatsapp").setValue(editTextWhatsApp.text.toString())
-                /*textViewTitle.text = editTextTitle.text
-                textViewDate.text = editTextDate.text
-                textViewTime.text = editTextTime.text
-                textViewLocation.text = editTextLocation.text
-                textViewDesc.text = editTextDesc.text*/
+
                 CachePot.getInstance().push(eventID)
                 requireView().findNavController().navigate(R.id.navigation_eventDetails)}
 

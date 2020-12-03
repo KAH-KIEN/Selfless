@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
+//Credit to squareup-picasso
 class EditProfileFragment : Fragment() {
     private var db = FirebaseDatabase.getInstance().reference
     private lateinit var auth: FirebaseAuth
