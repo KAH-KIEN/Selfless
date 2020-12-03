@@ -5,7 +5,6 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     tools:context=".ui.EventDetails.OrganiserEventsFragment">
 
     <Button
@@ -49,6 +48,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginBottom="24dp"
+        android:linksClickable="true"
+        android:autoLink="web"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/buttonQR"
         app:layout_constraintStart_toStartOf="parent" />

@@ -19,6 +19,8 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.encoder.QRCode
 import java.util.Date.from
 
+//Credits to ZXing Project :  QRCodeWriter
+//Credits to kimkevin : CachePot
 class QRCodeFragment : Fragment() {
 
     companion object {

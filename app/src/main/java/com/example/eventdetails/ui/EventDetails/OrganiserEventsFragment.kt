@@ -2,6 +2,7 @@ package com.example.eventdetails.ui.EventDetails
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+//Credits to kimkevin : CachePot
 class OrganiserEventsFragment : Fragment() {
 
     companion object {
@@ -85,6 +87,9 @@ class OrganiserEventsFragment : Fragment() {
             fragmentTransaction.commit()
         }
 
+
+        val textWhatsApp = root.findViewById(R.id.textViewWhatsAppOrganiser) as TextView
+        textWhatsApp.movementMethod = LinkMovementMethod.getInstance()
 
 
         return root

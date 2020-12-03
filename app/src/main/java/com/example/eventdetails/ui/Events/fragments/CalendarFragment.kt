@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
+//Credits to kimkevin : CachePot
+
 class CalendarFragment : Fragment() {
     var compactCalendar: CompactCalendarView? = null
     private val dateFormatMonth = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(Date())

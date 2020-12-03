@@ -1,14 +1,15 @@
 package com.example.eventdetails.ui.EventDetails
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
@@ -16,6 +17,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+
+//Credits to kimkevin : CachePot
 
 class VolunteerEventsFragment : Fragment() {
 
@@ -32,7 +35,7 @@ class VolunteerEventsFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.volunteer_events_fragment, container, false)
         val buttonComplete = root.findViewById<Button>(R.id.buttonCompleteVolunteer)
-        Log.i("ButtonComplete","$buttonComplete")
+        Log.i("ButtonComplete", "$buttonComplete")
         val ref = FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
         var whatsAppLink :String
         ref.addValueEventListener(object : ValueEventListener {
@@ -49,7 +52,7 @@ class VolunteerEventsFragment : Fragment() {
         })
 
         buttonComplete.setOnClickListener {
-            Log.i("OnClickButtonComplete","Clicked")
+            Log.i("OnClickButtonComplete", "Clicked")
             CachePot.getInstance().push(eventID)
             requireView().findNavController().navigate(R.id.fragment_qrscanner)
             /*val manager = parentFragmentManager
@@ -58,6 +61,9 @@ class VolunteerEventsFragment : Fragment() {
             transaction.commit()*/
 
         }
+
+        val textWhatsApp = root.findViewById(R.id.textViewWhatsAppVolunteer) as TextView
+        textWhatsApp.movementMethod = LinkMovementMethod.getInstance()
         return root
     }
 

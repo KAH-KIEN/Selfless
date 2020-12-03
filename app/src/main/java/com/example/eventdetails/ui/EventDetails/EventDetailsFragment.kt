@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Text
 
+//Credits to kimkevin : CachePot
 
 class EventDetailsFragment : Fragment(), View.OnClickListener {
 

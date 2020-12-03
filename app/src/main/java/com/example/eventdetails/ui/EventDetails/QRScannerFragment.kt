@@ -20,7 +20,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 
-
+//Credits to ZXing Project :  QRCodeWriter
+//Credits to kimkevin : CachePot
 class QRScannerFragment : Fragment() {
 
     val eventID: String = CachePot.getInstance().pop(String::class.java)

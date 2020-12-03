@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
+//Credits to kimkevin : CachePot
+
 class UserEventFragment : Fragment() {
 
     companion object {

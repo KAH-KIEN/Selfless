@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
+//Credits to kimkevin : CachePot
+
 class EditEventsFragment : Fragment() {
 
     companion object {
