@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.eventdetails.R
 import com.github.kimkevin.cachepot.CachePot
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -31,6 +32,18 @@ import java.util.*
 //Credits to kimkevin : CachePot
 
 class EditEventsFragment : Fragment() {
+
+
+    lateinit var editTextTitle: EditText
+    lateinit var editTextDate: TextView
+    lateinit var editTextTime: TextView
+    lateinit var editTextLocation: EditText
+    lateinit var editTextPhoneNum: EditText
+    lateinit var editTextDesc: EditText
+    lateinit var editTextWhatsApp: EditText
+
+
+
 
     companion object {
         fun newInstance() = EditEventsFragment()
@@ -74,29 +87,31 @@ class EditEventsFragment : Fragment() {
         val root= inflater.inflate(R.layout.edit_events_fragment, container, false)
         val root2 = inflater.inflate(R.layout.fragment_eventdetails, container, false)
 
-        val editTextTitle:EditText = root.findViewById(R.id.editTextTitle)
+        editTextTitle = root.findViewById(R.id.editTextTitle)
         val textViewTitle:TextView = root2.findViewById(R.id.textViewTitle)
         editTextTitle.setText(textViewTitle.text)
 
-        val editTextDate:TextView = root.findViewById(R.id.editTextDate)
+        editTextDate = root.findViewById(R.id.editTextDate)
         val textViewDate:TextView = root2.findViewById(R.id.textViewDate)
         editTextDate.text = textViewDate.text
 
-        val editTextTime:TextView = root.findViewById(R.id.editTextTime)
+        editTextTime = root.findViewById(R.id.editTextTime)
         val textViewTime:TextView = root2.findViewById(R.id.textViewTime)
         editTextTime.text = textViewTime.text
 
-        val editTextLocation:EditText = root.findViewById(R.id.editTextLocation)
+        editTextLocation = root.findViewById(R.id.editTextLocation)
         val textViewLocation:TextView = root2.findViewById(R.id.textViewLocation)
         editTextLocation.setText(textViewLocation.text)
 
-        val editTextPhoneNum:EditText = root.findViewById(R.id.editTextPhoneNum)
+        editTextPhoneNum = root.findViewById(R.id.editTextPhoneNum)
         val textViewPhoneNum:TextView = root2.findViewById(R.id.textViewPhoneNum)
         editTextPhoneNum.setText(textViewPhoneNum.text)
 
-        val editTextDesc:EditText = root.findViewById(R.id.editTextDesc)
+        editTextDesc = root.findViewById(R.id.editTextDesc)
         val textViewDesc:TextView = root2.findViewById(R.id.textViewDesc)
         editTextDesc.setText(textViewDesc.text)
+
+        editTextWhatsApp = root.findViewById(R.id.editTextWhatsApp)
 
         model.title.observe(viewLifecycleOwner,
             { o -> editTextTitle.setText(o!!.toString()) })
@@ -116,6 +131,13 @@ class EditEventsFragment : Fragment() {
         model.desc.observe(viewLifecycleOwner,
             { o -> editTextDesc.setText(o!!.toString())})
 
+        val eventTitle = editTextTitle.getText().toString().trim()
+        val eventDate = editTextDate.getText().toString().trim()
+        val eventTime = editTextTime.getText().toString().trim()
+        val eventLocation = editTextLocation.getText().toString().trim()
+        val eventContact = editTextPhoneNum.getText().toString().trim()
+        val eventDescription = editTextDesc.getText().toString().trim()
+
 
         val buttonEditSave: Button = root.findViewById(R.id.buttonEditSave)
         var editTextWhatsApp: EditText = root.findViewById(R.id.editTextWhatsApp)
@@ -134,20 +156,24 @@ class EditEventsFragment : Fragment() {
         })
 
         buttonEditSave.setOnClickListener {
-            model!!.setMsgCommunicator(editTextTitle.text.toString(),editTextDate.text.toString(),editTextTime.text.toString(),editTextLocation.text.toString(),editTextPhoneNum.text.toString(),editTextDesc.text.toString())
-            myRef.child("eventTitle").setValue(editTextTitle.text.toString())
-            myRef.child("eventDate").setValue(editTextDate.text.toString())
-            myRef.child("eventTime").setValue(editTextTime.text.toString())
-            myRef.child("eventLocation").setValue(editTextLocation.text.toString())
-            myRef.child("eventDescription").setValue(editTextDesc.text.toString())
-            myRef.child("eventWhatsapp").setValue(editTextWhatsApp.text.toString())
-            /*textViewTitle.text = editTextTitle.text
-            textViewDate.text = editTextDate.text
-            textViewTime.text = editTextTime.text
-            textViewLocation.text = editTextLocation.text
-            textViewDesc.text = editTextDesc.text*/
-            CachePot.getInstance().push(eventID)
-            requireView().findNavController().navigate(R.id.navigation_eventDetails)
+            if (!validateEventTitle() or !validateEventDate() or !validateEventTime()
+                    or !validateEventLocation() or !validateEventContact() or !validateEventDescription())
+            else
+            {model!!.setMsgCommunicator(editTextTitle.text.toString(),editTextDate.text.toString(),editTextTime.text.toString(),editTextLocation.text.toString(),editTextPhoneNum.text.toString(),editTextDesc.text.toString())
+                myRef.child("eventTitle").setValue(editTextTitle.text.toString())
+                myRef.child("eventDate").setValue(editTextDate.text.toString())
+                myRef.child("eventTime").setValue(editTextTime.text.toString())
+                myRef.child("eventLocation").setValue(editTextLocation.text.toString())
+                myRef.child("eventDescription").setValue(editTextDesc.text.toString())
+                myRef.child("eventWhatsapp").setValue(editTextWhatsApp.text.toString())
+                /*textViewTitle.text = editTextTitle.text
+                textViewDate.text = editTextDate.text
+                textViewTime.text = editTextTime.text
+                textViewLocation.text = editTextLocation.text
+                textViewDesc.text = editTextDesc.text*/
+                CachePot.getInstance().push(eventID)
+                requireView().findNavController().navigate(R.id.navigation_eventDetails)}
+
         }
 
         val imageButtonEditTime : ImageButton = root.findViewById(R.id.imageButtonEditTime)
@@ -189,8 +215,95 @@ class EditEventsFragment : Fragment() {
         }
 
 
+
         return root
     }
+
+    private fun validateEventTitle():Boolean {
+        val eventTitle = editTextTitle.getText().toString().trim()
+        return if (eventTitle.isEmpty()) {
+            editTextTitle.setError("Field can't be empty")
+            false
+        }
+        else if (eventTitle.length > 30) {
+            editTextTitle.setError("Event title too long")
+            false
+        }
+        else {
+            editTextTitle.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventDate(): Boolean {
+        val eventDate = editTextDate.getText().toString().trim()
+        val currentDate = Date()
+        val myFormatString = "dd/MM/yy"
+        val formatter = SimpleDateFormat(myFormatString)
+        val givenDate = formatter.parse(eventDate)
+        val inputDate = givenDate.getTime()
+        val dateValidity = Date(inputDate)
+
+
+        return if (eventDate.isEmpty()) {
+            editTextDate.setError("Field can't be empty")
+            false
+        }
+        else if(currentDate.time >= dateValidity.time){
+            editTextDate.setError("Invalid date")
+            false
+        }
+        else {
+            editTextDate.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventTime(): Boolean {
+        val eventTime = editTextTime.getText().toString().trim()
+        return if (eventTime.isEmpty()) {
+            editTextTime.setError("Field can't be empty")
+            false
+        } else {
+            editTextTime.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventLocation(): Boolean {
+        val eventLocation = editTextLocation.getText().toString().trim()
+        return if (eventLocation.isEmpty()) {
+            editTextLocation.setError("Field can't be empty")
+            false
+        } else {
+            editTextLocation.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventContact(): Boolean {
+        val eventContact = editTextPhoneNum.getText().toString().trim()
+        return if (eventContact.isEmpty()) {
+            editTextPhoneNum.setError("Field can't be empty")
+            false
+        } else {
+            editTextPhoneNum.setError(null)
+            true
+        }
+    }
+
+    private fun validateEventDescription(): Boolean {
+        val eventDescription = editTextDesc.getText().toString().trim()
+        return if (eventDescription.isEmpty()) {
+            editTextDesc.setError("Field can't be empty")
+            false
+        } else {
+            editTextDesc.setError(null)
+            true
+        }
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
