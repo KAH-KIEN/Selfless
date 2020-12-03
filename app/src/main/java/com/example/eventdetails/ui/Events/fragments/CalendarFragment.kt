@@ -1,5 +1,5 @@
 package com.android.example.eventactivity.fragments
-//Credit to SundeepK-CompactCalendarView
+
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +26,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
-
+//Credit to SundeepK-CompactCalendarView
 //Credits to kimkevin : CachePot
 
 class CalendarFragment : Fragment() {
