@@ -41,19 +41,6 @@ class UserEventFragment : Fragment() {
         var listLength : Int = 0
         val myRef = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("VolunteeredEvents")
         val myRef2 =FirebaseDatabase.getInstance().reference.child("Events").child("$eventID")
-        /*myRef.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children)
-                {
-                    listLength++
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })*/
 
         Log.i("RegisterButton","$buttonRegister")
         buttonRegister.setOnClickListener {

@@ -21,7 +21,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInput_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:helperText="*Required field">
 
                 <EditText
                     android:id="@+id/email"
@@ -38,7 +39,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInput_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:helperText="*Required field">
 
                 <EditText
                     android:id="@+id/password"
@@ -54,7 +56,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInput_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:helperText="*Required field">
 
                 <EditText
                     android:id="@+id/name"
@@ -70,7 +73,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInput_birthday"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:helperText="*Required field">
 
                 <EditText
                     android:id="@+id/birthday"
@@ -90,7 +94,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInput_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:helperText="*Required field">
 
                 <EditText
                     android:id="@+id/phone"

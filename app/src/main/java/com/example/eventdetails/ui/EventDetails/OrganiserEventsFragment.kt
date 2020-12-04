@@ -57,10 +57,6 @@ class OrganiserEventsFragment : Fragment() {
             Log.i("QRButton2", "Clicked")
             CachePot.getInstance().push(eventID)
             requireView().findNavController().navigate(R.id.navigation_QRCode)
-            /*val manager = parentFragmentManager
-            val transaction: FragmentTransaction = manager.beginTransaction()
-            transaction.add(R.id.nav_view,QRCodeFragment())
-            transaction.commit()*/
 
         }
 
