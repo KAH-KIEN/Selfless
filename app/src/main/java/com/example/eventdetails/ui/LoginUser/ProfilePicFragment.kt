@@ -52,7 +52,7 @@ class ProfilePicFragment : Fragment() {
             }
             Toast.makeText(getActivity(), "Changes saved!", Toast.LENGTH_SHORT).show()
 
-            requireView().findNavController().navigate(R.id.navigation_login)
+            requireView().findNavController().navigate(R.id.navigation_home)
         }
 
         return view

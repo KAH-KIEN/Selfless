@@ -99,9 +99,10 @@ class CalendarFragment : Fragment() {
                 val context = getActivity()?.getApplicationContext()
 
                 val parser = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy")
-                val formatter = SimpleDateFormat("dd/MM/yyyy")
+                val formatter = SimpleDateFormat("d/M/yyyy")
                 //val currentDate = formatter.format(Date())
                 var currentDate:String = ""
+
                 val output = formatter.format(parser.parse(dateClicked.toString()))
                 var valid: Boolean = FALSE
 
