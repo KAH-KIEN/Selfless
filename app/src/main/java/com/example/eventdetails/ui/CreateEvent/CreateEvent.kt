@@ -210,17 +210,21 @@ class CreateEvent : Fragment() {
         val eventDate = editEventDate.getEditText()?.getText().toString().trim()
         val currentDate = Date()
         val myFormatString = "dd/MM/yy"
-        val formatter = SimpleDateFormat(myFormatString)
-        val givenDate = formatter.parse(eventDate)
-        val inputDate = givenDate.getTime()
-        val dateValidity = Date(inputDate)
+        var dateValidity: Date? = null
+
+        if (eventDate.isNotEmpty()){
+            val formatter = SimpleDateFormat(myFormatString)
+            val givenDate = formatter.parse(eventDate)
+            val inputDate = givenDate.getTime()
+            dateValidity = Date(inputDate)
+        }
 
 
         return if (eventDate.isEmpty()) {
             editEventDate.setError("Field can't be empty")
             false
         }
-        else if(currentDate.time >= dateValidity.time){
+        else if(currentDate.time >= dateValidity!!.time){
             editEventDate.setError("Invalid date")
             false
         }
