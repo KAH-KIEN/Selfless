@@ -129,8 +129,12 @@ class CalendarFragment : Fragment() {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                             dataSnapshot.children.forEach {
-                                val keyID: String = it.key.toString()
-                                //Toast.makeText(context,  "RespectiveID, $keyID", Toast.LENGTH_SHORT).show()
+//                                var keyID: String = ""
+//                                if (keyID.isEmpty())
+//                                    keyID = it.key.toString()
+//                                Toast.makeText(context,  "RespectiveID, $keyID", Toast.LENGTH_SHORT).show()
+
+                                val keyID: String =  it.key.toString()
 
                                 val mRefInfo = FirebaseDatabase.getInstance().reference.child("Events").child(keyID)
                                 mRefInfo.addValueEventListener(object : ValueEventListener {
