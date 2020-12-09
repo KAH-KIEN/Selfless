@@ -99,7 +99,7 @@ class RecyclerAdapter(val context: Context, val eventList: ArrayList<EventRead>)
                                 {
                                     val completedRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("CompletedEvents").orderByKey()
                                     val completedEventIDList: MutableList<String> = mutableListOf()
-                                    volunteerRef.addValueEventListener(object :ValueEventListener {
+                                    completedRef.addValueEventListener(object :ValueEventListener {
                                         override fun onDataChange(snapshot: DataSnapshot) {
                                             for (item in snapshot.children) {
                                                 completedEventIDList.add(item.value.toString())

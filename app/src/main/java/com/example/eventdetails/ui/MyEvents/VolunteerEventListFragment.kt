@@ -46,8 +46,8 @@ class VolunteerEventListFragment : Fragment() {
         val auth = Firebase.auth
         val user = auth.currentUser?.uid
         val myRef = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("VolunteeredEvents").orderByKey()
+        val myRef2 = FirebaseDatabase.getInstance().reference.child("User").child(user.toString()).child("CompletedEvents").orderByKey()
         myRef.addValueEventListener(object : ValueEventListener {
-
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (item in snapshot.children)
@@ -56,25 +56,39 @@ class VolunteerEventListFragment : Fragment() {
 
                 }
 
-
-                ref = FirebaseDatabase.getInstance().getReference("Events")
-
-                ref.addValueEventListener(object : ValueEventListener {
+                myRef2.addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        //check if there is any data exit in the database
-                        if(snapshot!!.exists()){
-                            eventList.clear()
-                            for(e in snapshot.children){
-                                val events = e.getValue(EventRead::class.java)
-                                if (events?.eventID in eventIDList){
-                                    eventList.add(events!!)
-                                }
+                        for (item in snapshot.children)
+                        {
+                            eventIDList.add(item.value.toString())
 
+                        }
+
+                        ref = FirebaseDatabase.getInstance().getReference("Events")
+
+                        ref.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                //check if there is any data exit in the database
+                                if(snapshot!!.exists()){
+                                    eventList.clear()
+                                    for(e in snapshot.children){
+                                        val events = e.getValue(EventRead::class.java)
+                                        if (events?.eventID in eventIDList){
+                                            eventList.add(events!!)
+                                        }
+
+                                    }
+
+                                    val adapter = context?.let { RecyclerAdapter(it, eventList) }
+                                    recyclerView.adapter = adapter
+                                }
                             }
 
-                            val adapter = context?.let { RecyclerAdapter(it, eventList) }
-                            recyclerView.adapter = adapter
-                        }
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+
+                        })
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -82,6 +96,7 @@ class VolunteerEventListFragment : Fragment() {
                     }
 
                 })
+
 
 
 

@@ -67,12 +67,33 @@ class QRScannerFragment : Fragment() {
                 val userID = user?.uid
                 var listLength : Int = 0
                 val myRef = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("CompletedEvents")
-
+                val myRef2 = FirebaseDatabase.getInstance().reference.child("User").child("$userID").child("VolunteeredEvents")
+                val completedEventIDList: MutableList<String> = mutableListOf()
                 myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
+                    override fun onDataChange(snapshot: DataSnapshot) =
                         if (result.contents == eventID) {
                             myRef.push().setValue(eventID)
+                            myRef2.addListenerForSingleValueEvent(object :ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    for (item in snapshot.children) {
+                                        if (item.value.toString() == eventID)
+                                        {
+                                             myRef2.child(item.key.toString()).setValue(null)
+                                        }
+                                    }
+
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
+
+
+
+
+
                             CachePot.getInstance().push(eventID)
                             Toast.makeText(context, "Event Completed!", Toast.LENGTH_LONG).show()
 
@@ -81,7 +102,6 @@ class QRScannerFragment : Fragment() {
                         {
                             Toast.makeText(context, "Wrong QRCode!", Toast.LENGTH_LONG).show()
                         }
-                    }
 
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
